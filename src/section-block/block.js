@@ -12,11 +12,13 @@ import './style.scss';
 const { __ } = wp.i18n; // Import __() from wp.i18n
 
 const { 
-	registerBlockType 
+	registerBlockType,
 } = wp.blocks; // Import registerBlockType() from wp.blocks
 
 const { 
-    InnerBlocks
+    InnerBlocks,
+    InspectorControls,
+    MediaUpload
 } = wp.blockEditor;
 
 const {
@@ -29,10 +31,13 @@ const {
     RangeControl,
     Panel,
     PanelBody,
-    PanelRow
+    PanelRow,
+    ColorPalette
 } = wp.components;
 
-const el = wp.element.createElement;
+const {
+    Fragment
+} = wp.element;
 
 /**
  * Register: aa Gutenberg Block.
@@ -58,10 +63,10 @@ registerBlockType( 'fp/section-container-block', {
 		__( 'Wrapper' ),
 	],
 	attributes: {
-	    backgroundImgPosition: {
+	    backgroundImagePosition: {
 			type: 'string',
 		},
-	    imgUrl: {
+	    backgroundImageUrl: {
         	type: 'string',
         	default: null
     	},
@@ -80,6 +85,10 @@ registerBlockType( 'fp/section-container-block', {
     		type: 'string',
     		default: '{ "top":"0", "right":"auto", "bottom":"auto", "left":"0" }',
     	},
+    	backgroundAlignment: {
+			type: 'string',
+			default: 'none'
+		},
     	columnsAmount: {
             type: 'number',
             default: '1'
@@ -104,19 +113,224 @@ registerBlockType( 'fp/section-container-block', {
 		const { attributes, withState } = props;
 
 		const {
-			backgroundImgPosition,
+			backgroundImagePosition,
 			stickySectionBackground,
 			sectionPadding,
 			sectionMargin,
 			backgroundColor,
 			columnsAmount,
+			backgroundImageUrl,
+			backgroundAlignment,
 		} = attributes;
 
-		return (
+		function selectImage(value) {
+		    setAttributes({
+		        backgroundImageUrl: value.sizes.full.url,
+		    })
+		};
+
+		function removeImage(value) {
+		    setAttributes({
+		        backgroundImageUrl: null,
+		    })
+		};
+
+		let bgColors = wp.data.select( 'core/editor' ).getEditorSettings().colors;
+
+    	let color = 'transparent';
+
+    	const labelElement = (
+			<Fragment>
+				{ label }
+				{ value && (
+					<ColorIndicator
+						colorValue={ value }
+						aria-label={ ariaLabel }
+					/>
+				) }
+			</Fragment>
+		);
+
+		function backgroundPosition(){
+			if( backgroundImageUrl != null || backgroundColor != null ){
+				return [
+
+					<PanelRow>
+
+						<SelectControl
+							label={ __( 'Achtergrond uitlijning' ) }
+							value={ backgroundAlignment }
+							options={ [
+								{
+									value: 'none',
+									label: __( 'Midden uitlijnen' ),
+								},
+								{
+									value: 'align-left',
+									label: __( 'Links uitlijnen' ),
+								},
+								{
+									value: 'align-right',
+									label: __( 'Rechts uitlijnen' ),
+								},
+								{
+									value: 'align-fullwidth',
+									label: __( 'Volle breedte' ),
+								},
+							] }
+
+							onChange={ ( value ) => setAttributes( { backgroundAlignment: value } ) }
+						/>
+
+					</PanelRow>
+
+				];
+			}
+		}
+
+		function backgroundImgExtraFields(){
+
+			if( backgroundImageUrl == null ){
+				return '';
+			}
+
+			return[
+				<PanelRow>
+					<ToggleControl
+				        label="Sticky achtergrond"
+				        checked={ stickySectionBackground }
+				        onChange={ ( stickySectionBackground ) => { setAttributes( { stickySectionBackground: stickySectionBackground } ) } }
+				    />
+				</PanelRow>,
+				<PanelRow>
+					<SelectControl
+						label={ __( 'Achtergrond positie' ) }
+						value={ backgroundImagePosition }
+						options={ [
+							{
+								value: 'top left',
+								label: __( 'Boven links' ),
+							},
+							{
+								value: 'top center',
+								label: __( 'Boven midden' ),
+							},
+							{
+								value: 'Boven rechts',
+								label: __( 'Boven rechts' ),
+							},
+							{
+								value: 'center left',
+								label: __( 'Midden links' ),
+							},
+							{
+								value: 'center center',
+								label: __( 'Midden midden' ),
+							},
+							{
+								value: 'center right',
+								label: __( 'Midden rechts' ),
+							},
+							{
+								value: 'bottom left',
+								label: __( 'Beneden links' ),
+							},
+							{
+								value: 'bottom center',
+								label: __( 'Beneden midden' ),
+							},
+							{
+								value: 'bottom right',
+								label: __( 'Beneden rechts' ),
+							},
+						] }
+
+						onChange={ ( selectedOption ) => setAttributes( { backgroundImagePosition: selectedOption } ) }
+					/>
+				</PanelRow>
+			];
+		};
+
+		function removeBackgroundImageBtn(){
+
+			if( backgroundImageUrl == null ){
+				return '';
+			}
+
+			return(
+				<span class="remove-section-img" onClick={removeImage}> { __( 'Remove' ) } </span>
+			);
+		};
+
+		return [
+			<InspectorControls>
+
+				<PanelBody
+					title={ __( 'Achtergrond' ) }
+					initialOpen={ false }
+				>
+
+					<PanelRow>
+						
+						<div className="components-base-control">
+							
+							<label class="components-base-control__label">{ __( 'Afbeelding' ) }</label>
+							<MediaUpload 
+								onSelect={selectImage}
+								render={ ({open}) => {
+									return <img 
+										className={'components-img'}
+										src={backgroundImageUrl}
+										onClick={open}
+									/>;
+								}}
+							/>
+
+							<div class="section-media-upload">
+								<MediaUpload 
+									onSelect={selectImage}
+									render={ ({open}) => {
+										return <button 
+											type={'button'}
+											className={'components-button is-primary is-default'}
+											src={backgroundImageUrl}
+											onClick={open}
+											>Afbeelding aanpassen
+										</button>;
+									}}
+								/>
+
+								{ removeBackgroundImageBtn() }
+
+							</div>
+
+						</div>
+
+					</PanelRow>
+
+					{ backgroundImgExtraFields() }
+
+					<PanelRow>
+						<label class="components-base-control__label">{ __( 'Achtergrond kleur' ) }</label>
+
+						<ColorPalette
+				            colors={ bgColors }
+				            value={ color }
+				            disableCustomColors = 'false'
+				           	onChange={ ( value ) => setAttributes( { backgroundColor: value } ) }
+				        />
+
+					</PanelRow>
+
+					{ backgroundPosition() }
+
+				</PanelBody>
+
+			</InspectorControls>,
 			<div className={ props.className }>
 				<InnerBlocks />
 			</div>
-		);
+		];
 	},
 
 	/**
