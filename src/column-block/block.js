@@ -15,6 +15,7 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
 const { 
     InnerBlocks,
     InspectorControls,
+    MediaUpload
 } = wp.blockEditor;
 
 /**
@@ -35,6 +36,8 @@ registerBlockType( 'fp/column-block', {
 	title: __( 'Column block' ), // Block title.
 	icon: 'shield', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
+	supports: { inserter: false },
+	parent: ['fp/section-container-block'],
 	keywords: [
 		__( 'fancypantsy-section-container-block — CGB Block' ),
 		__( 'CGB Example' ),
@@ -56,13 +59,34 @@ registerBlockType( 'fp/column-block', {
 		const { className, setAttributes, setState } = props;
 
 		const { attributes, withState } = props;
-		
+
+		function returnAllowedBlocks(){
+			let allowedBlocks = fpscbglobal.allowedColumnBlocks[0];
+			return allowedBlocks;
+		}
+
+					
+
+
+		function customRenderAppender(){
+
+			// var editorStuff = wp.data.select( 'core/editor' );
+
+			// console.log( editorStuff );
+
+			// renderAppender={ () => (
+			// 	<InnerBlocks.ButtonBlockAppender />
+			// ) }
+			
+			//return false;
+		}
+
 		return[
-			<p>fp/column-block</p>,
 			<div className={ props.className }>
 				<InnerBlocks 
-				templateLock="all"
-				allowedBlocks={ [ 'core/paragraph' ] } />
+					allowedBlocks={ returnAllowedBlocks() }
+                    templateLock={ false }
+				/>
 			</div>
 		];
 	},

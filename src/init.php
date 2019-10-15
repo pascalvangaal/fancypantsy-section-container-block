@@ -60,7 +60,7 @@ function fp_section_container_block_assets() { // phpcs:ignore
 		[
 			'pluginDirPath' 		=> plugin_dir_path( __DIR__ ),
 			'pluginDirUrl'  		=> plugin_dir_url( __DIR__ ),
-			'allowedColumnBlocks'	=> apply_filters( 'fp_allowed_inner_column_blocks', array() )
+			'allowedColumnBlocks'	=> apply_filters( 'fp_allowed_inner_column_blocks', [], 10, 1 )
 		]
 	);
 

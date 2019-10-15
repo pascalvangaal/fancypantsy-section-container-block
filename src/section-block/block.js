@@ -357,6 +357,7 @@ registerBlockType( 'fp/section-container-block', {
 				<InnerBlocks 
    				 	template={ times( parseInt(columnsAmount), () => [ 'fp/column-block' ] ) }
    				 	templateLock="all"
+   				 	allowedBlocks={ [ 'fp/column-block' ] }
 	   			/>
 			</div>
 		];
