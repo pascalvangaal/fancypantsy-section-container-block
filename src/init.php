@@ -58,9 +58,9 @@ function fp_section_container_block_assets() { // phpcs:ignore
 		'fp_section_container_block_js',
 		'fpscbglobal', // Array containing dynamic data for a JS Global.
 		[
-			'pluginDirPath' => plugin_dir_path( __DIR__ ),
-			'pluginDirUrl'  => plugin_dir_url( __DIR__ ),
-			// Add more data here that you want to access from `fpscbglobal` object.
+			'pluginDirPath' 		=> plugin_dir_path( __DIR__ ),
+			'pluginDirUrl'  		=> plugin_dir_url( __DIR__ ),
+			'allowedColumnBlocks'	=> apply_filters( 'fp_allowed_inner_column_blocks', array() )
 		]
 	);
 

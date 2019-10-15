@@ -39,6 +39,8 @@ const {
     Fragment
 } = wp.element;
 
+const { times } = lodash;
+
 /**
  * Register: aa Gutenberg Block.
  *
@@ -138,18 +140,6 @@ registerBlockType( 'fp/section-container-block', {
 		let bgColors = wp.data.select( 'core/editor' ).getEditorSettings().colors;
 
     	let color = 'transparent';
-
-    	const labelElement = (
-			<Fragment>
-				{ label }
-				{ value && (
-					<ColorIndicator
-						colorValue={ value }
-						aria-label={ ariaLabel }
-					/>
-				) }
-			</Fragment>
-		);
 
 		function backgroundPosition(){
 			if( backgroundImageUrl != null || backgroundColor != null ){
@@ -264,7 +254,40 @@ registerBlockType( 'fp/section-container-block', {
 
 		return [
 			<InspectorControls>
+				<PanelBody
+					title={ __( 'Columns' ) }
+					initialOpen={ true }
+				>
+					<PanelRow>
 
+						<SelectControl
+							label={ __( 'Blokken langs elkaar' ) }
+							value={ columnsAmount }
+							options={ [
+								{
+									value: '1',
+									label: __( '1' ),
+								},
+								{
+									value: '2',
+									label: __( '2' ),
+								},
+								{
+									value: '3',
+									label: __( '3' ),
+								},
+								{
+									value: '4',
+									label: __( '4' ),
+								},
+							] }
+
+							onChange={ ( value ) => setAttributes( { columnsAmount: parseInt(value) } ) }
+						/>
+
+					</PanelRow>
+				</PanelBody>
+				
 				<PanelBody
 					title={ __( 'Achtergrond' ) }
 					initialOpen={ false }
@@ -311,14 +334,17 @@ registerBlockType( 'fp/section-container-block', {
 					{ backgroundImgExtraFields() }
 
 					<PanelRow>
-						<label class="components-base-control__label">{ __( 'Achtergrond kleur' ) }</label>
+						
+						<div>
+							<label class="components-base-control__label">{ __( 'Achtergrond kleur' ) }</label>
 
-						<ColorPalette
-				            colors={ bgColors }
-				            value={ color }
-				            disableCustomColors = 'false'
-				           	onChange={ ( value ) => setAttributes( { backgroundColor: value } ) }
-				        />
+							<ColorPalette
+					            colors={ bgColors }
+					            value={ color }
+					            disableCustomColors = 'false'
+					           	onChange={ ( value ) => setAttributes( { backgroundColor: value } ) }
+					        />
+				        </div>
 
 					</PanelRow>
 
@@ -328,7 +354,10 @@ registerBlockType( 'fp/section-container-block', {
 
 			</InspectorControls>,
 			<div className={ props.className }>
-				<InnerBlocks />
+				<InnerBlocks 
+   				 	template={ times( parseInt(columnsAmount), () => [ 'fp/column-block' ] ) }
+   				 	templateLock="all"
+	   			/>
 			</div>
 		];
 	},
