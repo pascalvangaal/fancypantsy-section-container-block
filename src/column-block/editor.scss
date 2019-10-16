@@ -13,3 +13,9 @@
   max-width: 740px;
   padding: 2rem;
 }
+
+.wp-block-fp-column-block{
+	.wp-block + .block-list-appender{
+		display:none !important;
+	}
+}

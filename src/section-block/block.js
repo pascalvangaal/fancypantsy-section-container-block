@@ -95,6 +95,12 @@ registerBlockType( 'fp/section-container-block', {
             type: 'number',
             default: '1'
         },
+        sectionTitle: {
+            type: 'string',
+        },
+        sectionTitleHeading: {
+        	type: 'string',
+        }
 	},
 
 	/**
@@ -123,6 +129,8 @@ registerBlockType( 'fp/section-container-block', {
 			columnsAmount,
 			backgroundImageUrl,
 			backgroundAlignment,
+			sectionTitle,
+			sectionTitleHeading
 		} = attributes;
 
 		function selectImage(value) {
@@ -252,12 +260,76 @@ registerBlockType( 'fp/section-container-block', {
 			);
 		};
 
+		function headingFunction(){
+			// if( sectionTitle ){
+
+			// 	console.log( sectionTitleHeading );
+
+			// 	// let fullHeading = '<'+sectionTitleHeading+'>'+sectionTitle+'</'+sectionTitleHeading+'>';
+			// 	// let headingHtml = headingHtml.html( fullHeading );
+
+			// 	return [
+			// 		<dangerouslySetInnerHTML={__html: sectionTitleHeading} />hoi</div>
+			// 	];
+			// }
+			
+			return ('<p>sectiontitle</p>');
+
+		}
+
 		return [
 			<InspectorControls>
 				<PanelBody
-					title={ __( 'Columns' ) }
+					title={ __( 'Instellingen' ) }
 					initialOpen={ true }
 				>
+					<PanelRow>
+
+						<TextControl
+					        label="Section title"
+					        placeholder="Vul hier een section title in.."
+					        value={ sectionTitle }
+					        onChange={ ( value ) => setAttributes( { sectionTitle: value } ) }
+					    />
+
+					</PanelRow>
+					<PanelRow>
+
+						<RadioControl
+							label={ __( 'Section title heading' ) }
+							value={ sectionTitleHeading }
+							selected={ sectionTitleHeading }
+							options={ [
+								{
+									value: 'h1',
+									label: __( 'H1' ),
+								},
+								{
+									value: 'h2',
+									label: __( 'H2' ),
+								},
+								{
+									value: 'h3',
+									label: __( 'H3' ),
+								},
+								{
+									value: 'h4',
+									label: __( 'H4' ),
+								},
+								{
+									value: 'h5',
+									label: __( 'H5' ),
+								},
+								{
+									value: 'h6',
+									label: __( 'H6' ),
+								},
+							] }
+
+							onChange={ ( value ) => setAttributes( { sectionTitleHeading: value } ) }
+						/>
+
+					</PanelRow>
 					<PanelRow>
 
 						<SelectControl
@@ -354,6 +426,7 @@ registerBlockType( 'fp/section-container-block', {
 
 			</InspectorControls>,
 			<div className={ props.className }>
+				{ headingFunction() }
 				<InnerBlocks 
    				 	template={ times( parseInt(columnsAmount), () => [ 'fp/column-block' ] ) }
    				 	templateLock="all"

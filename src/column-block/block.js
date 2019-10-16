@@ -65,22 +65,6 @@ registerBlockType( 'fp/column-block', {
 			return allowedBlocks;
 		}
 
-					
-
-
-		function customRenderAppender(){
-
-			// var editorStuff = wp.data.select( 'core/editor' );
-
-			// console.log( editorStuff );
-
-			// renderAppender={ () => (
-			// 	<InnerBlocks.ButtonBlockAppender />
-			// ) }
-			
-			//return false;
-		}
-
 		return[
 			<div className={ props.className }>
 				<InnerBlocks 
