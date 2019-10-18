@@ -79,16 +79,16 @@
 	flex:0 0 100% !important;
 }
 
-.wp-block-fp-section-container-block{
+// .wp-block-fp-section-container-block{
 
-	.wp-block.has-child-selected{
-		display:block !important;
-		flex:0 0 100% !important;
-		margin-right:0 !important;
-		margin-left:0 !important;
-		order:-1 !important;
-	}
-}
+// 	.wp-block.has-child-selected{
+// 		display:block !important;
+// 		flex:0 0 100% !important;
+// 		margin-right:0 !important;
+// 		margin-left:0 !important;
+// 		order:-1 !important;
+// 	}
+// }
 
 .wp-admin .wp-block-fp-section-container-block{
 	overflow-x:visible;
@@ -109,6 +109,10 @@
 	}
 }
 
+.custom-innerblock-modal{
+	width:92%;
+	height:90vh;
+}
 
 // .wp-block-fp-column-block{
 // 	.wp-block.is-selected{

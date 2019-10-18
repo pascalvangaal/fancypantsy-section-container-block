@@ -18,6 +18,57 @@ const {
     MediaUpload
 } = wp.blockEditor;
 
+const {
+    Button,
+    Modal
+} = wp.components;
+
+const { withState } = wp.compose;
+
+function returnAllowedBlocks(){
+	let allowedBlocks = fpscbglobal.allowedColumnBlocks[0];
+	return allowedBlocks;
+}
+
+const InnerBlockModal = withState( {
+    isOpen: false,
+} )( ( { isOpen, setState } ) => (
+    <div>
+    	{ isOpen == false && (
+            
+			<InnerBlocks 
+				allowedBlocks={ returnAllowedBlocks() }
+                templateLock={ false }
+			/>
+          
+        ) }
+        
+        <Button isDefault onClick={ () => setState( { isOpen: true } ) }>Bewerken in popup</Button>
+
+        { isOpen && (
+            <Modal
+                title="Blok aanpassen"
+                className="custom-innerblock-modal"
+                isDismissable={false}
+                shouldCloseOnEsc={false}
+                >
+                <div className='hide-modal-btn-wrapper'>
+	                <Button isDefault onClick={ () => setState( { isOpen: false } ) }>
+	                    Popup verbergen
+	                </Button>
+                </div>
+
+				<InnerBlocks 
+					allowedBlocks={ returnAllowedBlocks() }
+                    templateLock={ false }
+				/>
+            </Modal>
+        ) }
+
+        
+    </div>
+) );
+
 /**
  * Register: aa Gutenberg Block.
  *
@@ -60,17 +111,11 @@ registerBlockType( 'fp/column-block', {
 
 		const { attributes, withState } = props;
 
-		function returnAllowedBlocks(){
-			let allowedBlocks = fpscbglobal.allowedColumnBlocks[0];
-			return allowedBlocks;
-		}
-
 		return[
 			<div className={ props.className }>
-				<InnerBlocks 
-					allowedBlocks={ returnAllowedBlocks() }
-                    templateLock={ false }
-				/>
+				
+				<InnerBlockModal />
+				
 			</div>
 		];
 	},
