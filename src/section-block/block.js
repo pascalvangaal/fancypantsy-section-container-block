@@ -85,7 +85,7 @@ registerBlockType( 'fp/section-container-block', {
     	},
     	sectionMargin: {
     		type: 'string',
-    		default: '{ "top":"0", "right":"auto", "bottom":"auto", "left":"0" }',
+    		default: '{ "top":"0", "right":"0", "bottom":"0", "left":"0" }',
     	},
     	backgroundAlignment: {
 			type: 'string',
@@ -99,6 +99,14 @@ registerBlockType( 'fp/section-container-block', {
             type: 'string',
         },
         sectionTitleHeading: {
+        	type: 'string',
+        	default: 'h2'
+        },
+        sectionTitleAlignment: {
+        	type: 'string',
+        	default: 'left'
+        },
+        customAnchor: {
         	type: 'string',
         }
 	},
@@ -115,7 +123,7 @@ registerBlockType( 'fp/section-container-block', {
 	 * @returns {Mixed} JSX Component.
 	 */
 	edit: ( props ) => {
-		
+
 		const { className, setAttributes, setState } = props;
 
 		const { attributes, withState } = props;
@@ -130,8 +138,96 @@ registerBlockType( 'fp/section-container-block', {
 			backgroundImageUrl,
 			backgroundAlignment,
 			sectionTitle,
-			sectionTitleHeading
+			sectionTitleHeading,
+			sectionTitleAlignment,
+			customAnchor
 		} = attributes;
+
+		let customAnchorVar;
+
+		function customAnchorFunction(){
+			if( customAnchor && customAnchor != '' ){
+				return(
+					<div id={ customAnchor } className="section-anchor"></div>
+				);
+			} else {
+				return false;
+			}
+		}
+
+		let backgroundColorVal;
+
+		if( backgroundColor != '' ){
+			backgroundColorVal = { backgroundColor: backgroundColor };
+		}
+
+		let backgroundImageVar;
+
+		if( backgroundImageUrl != '' && backgroundImageUrl != null ){
+			backgroundImageVar = { backgroundImage: 'url('+attributes.backgroundImageUrl+')' };
+		}
+
+		let backgroundPositionVar;
+
+		if( backgroundImageUrl != '' && backgroundImageUrl != null ){
+			backgroundPositionVar = { backgroundPosition: backgroundImagePosition };
+		}
+
+		let stickyBackgroundVar;
+
+		if( backgroundImageUrl != '' && backgroundImageUrl != null && stickySectionBackground == true ){
+			stickyBackgroundVar = { backgroundAttachment: 'fixed' };
+		}
+
+		let sectionBGAlignment;
+
+	    if( backgroundAlignment && backgroundAlignment != 'none' ){
+	    	sectionBGAlignment = backgroundAlignment;
+	    }
+
+		let customPaddingObj = JSON.parse( sectionPadding );
+		let customMarginObj = JSON.parse( sectionMargin );
+
+		let paddingStyles;
+		let marginStyles;
+
+		if( customPaddingObj !== 0 ){ 
+			paddingStyles = { padding: + parseInt( customPaddingObj.top ) + 'px' + ' ' + parseInt( customPaddingObj.right ) + 'px' + ' ' + parseInt( customPaddingObj.bottom ) + 'px' + ' ' +  parseInt( customPaddingObj.left ) + 'px' };
+		}
+
+		if( customMarginObj !== 0 ){ 
+			marginStyles = { margin: + parseInt( customMarginObj.top ) + 'px' + ' ' + parseInt( customMarginObj.right ) + 'px' + ' ' + parseInt( customMarginObj.bottom ) + 'px' + ' ' +  parseInt( customMarginObj.left ) + 'px' };
+		}
+
+		function saveSectionPadding( value, position ){
+
+			let customObject = JSON.parse( sectionPadding );
+
+			if( value > 0 ){ 
+				customObject[position] = value;
+			} else {
+				customObject[position] = 0;
+			}
+
+			let jsonString = JSON.stringify( customObject );
+
+			setAttributes( { sectionPadding : jsonString } );
+		};
+
+		function saveSectionMargin( value, position ){
+
+			let customObject = JSON.parse( sectionMargin );
+
+			if( value > 0 ){ 
+				customObject[position] = value;
+			} else {
+				customObject[position] = 0;
+			}
+
+			let jsonString = JSON.stringify( customObject );
+
+			setAttributes( { sectionMargin : jsonString } );
+		};
 
 		function selectImage(value) {
 		    setAttributes({
@@ -261,24 +357,115 @@ registerBlockType( 'fp/section-container-block', {
 		};
 
 		function headingFunction(){
-			// if( sectionTitle ){
 
-			// 	console.log( sectionTitleHeading );
+			let customClassName;
 
-			// 	// let fullHeading = '<'+sectionTitleHeading+'>'+sectionTitle+'</'+sectionTitleHeading+'>';
-			// 	// let headingHtml = headingHtml.html( fullHeading );
+			customClassName = 'section-title';
 
-			// 	return [
-			// 		<dangerouslySetInnerHTML={__html: sectionTitleHeading} />hoi</div>
-			// 	];
-			// }
-			
-			return ('<p>sectiontitle</p>');
+			if( sectionTitleAlignment && sectionTitle != '' ){
+				customClassName += ' text-align-'+sectionTitleAlignment;
+			}
 
+			if( sectionTitle != '' && sectionTitleHeading == 'h1' ){
+				return [
+					<h1 className={ customClassName }>{sectionTitle}</h1>
+				];
+			} else if( sectionTitle != '' && sectionTitleHeading == 'h2' ){
+				return[
+					<h2 className={ customClassName }>{sectionTitle}</h2>
+				];
+			} else if( sectionTitle != '' && sectionTitleHeading == 'h3' ){
+				return [
+					<h3 className={ customClassName }>{sectionTitle}</h3>
+				];
+			} else if( sectionTitle != '' && sectionTitleHeading == 'h4' ){
+				return [
+					<h4 className={ customClassName }>{sectionTitle}</h4>
+				];
+			} else if( sectionTitle != '' && sectionTitleHeading == 'h5' ){
+				return [
+					<h5 className={ customClassName }>{sectionTitle}</h5>
+				];
+			} else if( sectionTitle != '' && sectionTitleHeading == 'h6' ){
+				return [
+					<h6 className={ customClassName }>{sectionTitle}</h6>
+				];
+			} else {
+				return false;
+			}
+		}
+
+		function sectionTitleAlignmentFunction(){
+
+			if( sectionTitle != '' ){ 
+				return[
+					<PanelRow>
+
+						<RadioControl
+							label={ __( 'Section title uitlijning' ) }
+							value={ sectionTitleAlignment }
+							selected={ sectionTitleAlignment }
+							options={ [
+								{
+									value: 'left',
+									label: __( 'Links' ),
+								},
+								{
+									value: 'center',
+									label: __( 'Centreren' ),
+								},
+								{
+									value: 'right',
+									label: __( 'rechts' ),
+								},
+							] }
+
+							onChange={ ( value ) => setAttributes( { sectionTitleAlignment: value } ) }
+						/>
+
+					</PanelRow>
+				];
+			} else {
+				return false;
+			}
+		}
+
+		function anchorExample(){
+
+			if( customAnchor && customAnchor != '' ){ 
+
+				return(
+					<div class="anchor-example">
+						<p>Gebruik het dikgedruikte stuk tekst om na een section te kunnen linken.</p>
+						<strong>#{ customAnchor }</strong>
+					</div>
+				);
+
+			} else {
+
+				return false;
+			}
 		}
 
 		return [
 			<InspectorControls>
+				<PanelBody
+					title={ __( 'Anchor' ) }
+					initialOpen={ false }
+				>
+					<PanelRow>
+						<div className="fp-custom-anchor-wrapper">
+							{ anchorExample() }
+
+							<TextControl
+						        label="Anchor"
+						        placeholder="#Anchor"
+						        value={ customAnchor }
+						        onChange={ ( value ) => setAttributes( { customAnchor: value } ) }
+						    />
+						</div>
+					</PanelRow>
+				</PanelBody>
 				<PanelBody
 					title={ __( 'Instellingen' ) }
 					initialOpen={ true }
@@ -330,6 +517,7 @@ registerBlockType( 'fp/section-container-block', {
 						/>
 
 					</PanelRow>
+					{ sectionTitleAlignmentFunction() }
 					<PanelRow>
 
 						<SelectControl
@@ -423,15 +611,85 @@ registerBlockType( 'fp/section-container-block', {
 					{ backgroundPosition() }
 
 				</PanelBody>
+				<PanelBody
+					title={ __( 'Witruimte' ) }
+					initialOpen={ false }
+				>
+					<PanelRow>
+
+						<div class="padding-wrapper">
+							<div class="custom-label">Padding <small>(in px)</small></div>
+						    <TextControl
+								type="number"
+						        label="Top"
+						        className='quarter-size'
+						        value={ customPaddingObj.top }
+							 	onChange={ (value) => saveSectionPadding( value, 'top' ) }		   
+							 />
+
+							 <TextControl
+								type="number"
+						        label="Right"
+						        className='quarter-size'
+						        value={ customPaddingObj.right }
+							 	onChange={ (value) => saveSectionPadding( value, 'right' ) }		   
+							 />
+
+							 <TextControl
+								type="number"
+						        label="Bottom"
+						        className='quarter-size'
+						        value={ customPaddingObj.bottom }
+							 	onChange={ (value) => saveSectionPadding( value, 'bottom' ) }		   
+							 />
+
+							 <TextControl
+								type="number"
+						        label="Left"
+						        className='quarter-size'
+						        value={ customPaddingObj.left }
+							 	onChange={ (value) => saveSectionPadding( value, 'left' ) }		   
+							 />
+
+						</div>
+
+					</PanelRow>
+					<PanelRow>
+
+						<div class="margin-wrapper">
+							<div class="custom-label">Margin <small>(in px)</small></div>
+						    <TextControl
+								type="number"
+						        label="Top"
+						        className='quarter-size'
+						        value={ customMarginObj.top }
+							 	onChange={ (value) => saveSectionMargin( value, 'top' ) }		   
+							 />
+
+							 <TextControl
+								type="number"
+						        label="Bottom"
+						        className='quarter-size'
+						        value={ customMarginObj.bottom }
+							 	onChange={ (value) => saveSectionMargin( value, 'bottom' ) }		   
+							 />
+
+						</div>
+					</PanelRow>
+				</PanelBody>
 
 			</InspectorControls>,
-			<div className={ props.className }>
-				{ headingFunction() }
-				<InnerBlocks 
-   				 	template={ times( parseInt(columnsAmount), () => [ 'fp/column-block' ] ) }
-   				 	templateLock="all"
-   				 	allowedBlocks={ [ 'fp/column-block' ] }
-	   			/>
+			<div data-section-bg-alignment={sectionBGAlignment} className={ props.className } style={{ ...marginStyles }}>
+				{ customAnchorFunction() }
+				<div className="container" style={{...paddingStyles}}>
+					<div className="background-element" style={{...backgroundPositionVar, ...backgroundImageVar, ...backgroundColorVal, ...stickyBackgroundVar }}></div>
+					{ headingFunction() }
+					<InnerBlocks 
+	   				 	template={ times( parseInt(columnsAmount), () => [ 'fp/column-block' ] ) }
+	   				 	templateLock="all"
+	   				 	allowedBlocks={ [ 'fp/column-block' ] }
+		   			/>
+	   			</div>
 			</div>
 		];
 	},
@@ -448,10 +706,184 @@ registerBlockType( 'fp/section-container-block', {
 	 * @returns {Mixed} JSX Frontend HTML.
 	 */
 	save: ( props ) => {
+
+		const { className, setAttributes, setState } = props;
+
+		const { attributes, withState } = props;
+
+		const {
+			backgroundImagePosition,
+			stickySectionBackground,
+			sectionPadding,
+			sectionMargin,
+			backgroundColor,
+			columnsAmount,
+			backgroundImageUrl,
+			backgroundAlignment,
+			sectionTitle,
+			sectionTitleHeading,
+			sectionTitleAlignment,
+			customAnchor
+		} = attributes;
+
+		let customAnchorVar;
+
+		function customAnchorFunction(){
+			if( customAnchor && customAnchor != '' ){
+				return(
+					<div id={ customAnchor } className="section-anchor"></div>
+				);
+			} else {
+				return false;
+			}
+		}
+
+		function headingFunction(){
+
+			let customClassName;
+
+			customClassName = 'section-title';
+
+			if( sectionTitleAlignment && sectionTitle != '' ){
+				customClassName += ' text-align-'+sectionTitleAlignment;
+			}
+
+			if( sectionTitle != '' && sectionTitleHeading == 'h1' ){
+				return [
+					<h1 className={ customClassName }>{sectionTitle}</h1>
+				];
+			} else if( sectionTitle != '' && sectionTitleHeading == 'h2' ){
+				return[
+					<h2 className={ customClassName }>{sectionTitle}</h2>
+				];
+			} else if( sectionTitle != '' && sectionTitleHeading == 'h3' ){
+				return [
+					<h3 className={ customClassName }>{sectionTitle}</h3>
+				];
+			} else if( sectionTitle != '' && sectionTitleHeading == 'h4' ){
+				return [
+					<h4 className={ customClassName }>{sectionTitle}</h4>
+				];
+			} else if( sectionTitle != '' && sectionTitleHeading == 'h5' ){
+				return [
+					<h5 className={ customClassName }>{sectionTitle}</h5>
+				];
+			} else if( sectionTitle != '' && sectionTitleHeading == 'h6' ){
+				return [
+					<h6 className={ customClassName }>{sectionTitle}</h6>
+				];
+			} else {
+				return false;
+			}
+		}
+
+		let backgroundColorVal;
+
+		if( backgroundColor != '' ){
+			backgroundColorVal = { backgroundColor: backgroundColor };
+		}
+
+		let backgroundImageVar;
+
+		if( backgroundImageUrl != '' && backgroundImageUrl != null ){
+			backgroundImageVar = { backgroundImage: 'url('+attributes.backgroundImageUrl+')' };
+		}
+
+		let backgroundPositionVar;
+
+		if( backgroundImageUrl != '' && backgroundImageUrl != null ){
+			backgroundPositionVar = { backgroundPosition: backgroundImagePosition };
+		}
+
+		let stickyBackgroundVar;
+
+		if( backgroundImageUrl != '' && backgroundImageUrl != null && stickySectionBackground == true ){
+			stickyBackgroundVar = { backgroundAttachment: 'fixed' };
+		}
+
+		let sectionBGAlignment;
+
+	    if( backgroundAlignment && backgroundAlignment != 'none' ){
+	    	sectionBGAlignment = backgroundAlignment;
+	    }
+
+		let customPaddingObj = JSON.parse( sectionPadding );
+		let customMarginObj = JSON.parse( sectionMargin );
+
+		let paddingStyles;
+		let marginStyles;
+
+		if( customPaddingObj !== 0 ){ 
+			paddingStyles = { padding: + parseInt( customPaddingObj.top ) + 'px' + ' ' + parseInt( customPaddingObj.right ) + 'px' + ' ' + parseInt( customPaddingObj.bottom ) + 'px' + ' ' +  parseInt( customPaddingObj.left ) + 'px' };
+		}
+
+		if( customMarginObj !== 0 ){ 
+			marginStyles = { margin: + parseInt( customMarginObj.top ) + 'px' + ' ' + parseInt( customMarginObj.right ) + 'px' + ' ' + parseInt( customMarginObj.bottom ) + 'px' + ' ' +  parseInt( customMarginObj.left ) + 'px' };
+		}
+
+		function saveSectionPadding( value, position ){
+
+			let customObject = JSON.parse( sectionPadding );
+
+			if( value > 0 ){ 
+				customObject[position] = value;
+			} else {
+				customObject[position] = 0;
+			}
+
+			let jsonString = JSON.stringify( customObject );
+
+			setAttributes( { sectionPadding : jsonString } );
+		};
+
+		function saveSectionMargin( value, position ){
+
+			let customObject = JSON.parse( sectionMargin );
+
+			if( value > 0 ){ 
+				customObject[position] = value;
+			} else {
+				customObject[position] = 0;
+			}
+
+			let jsonString = JSON.stringify( customObject );
+
+			setAttributes( { sectionMargin : jsonString } );
+		};
+
+		function selectImage(value) {
+		    setAttributes({
+		        backgroundImageUrl: value.sizes.full.url,
+		    })
+		};
+
+		function removeImage(value) {
+		    setAttributes({
+		        backgroundImageUrl: null,
+		    })
+		};
+
+		let bgColors = wp.data.select( 'core/editor' ).getEditorSettings().colors;
+
+    	let color = 'transparent';
+
+		let columnRowClass;
+
+		if( columnsAmount ){
+			columnRowClass = 'block-row blocks-in-row-'+columnsAmount;
+		}
+
 		return (
-			<div className={ props.className }>
-				<InnerBlocks.Content />
-			</div>
+			<section data-section-bg-alignment={sectionBGAlignment} className={ props.className } style={{ ...marginStyles }}>
+				{ customAnchorFunction() }
+				<div className="container" style={{...paddingStyles}}>
+					<div className="background-element" style={{...backgroundPositionVar, ...backgroundImageVar, ...backgroundColorVal, ...stickyBackgroundVar }}></div>
+					{ headingFunction() }
+					<div className={ columnRowClass }>
+						<InnerBlocks.Content />
+					</div>
+				</div>
+			</section>
 		);
 	},
 } );
