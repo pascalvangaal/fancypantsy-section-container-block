@@ -34,6 +34,10 @@
 .editor-styles-wrapper .editor-writing-flow{
 	max-width:92% !important;
 	margin:0 auto !important;
+		margin-bottom:30px;
+	&:last-child{
+		margin-bottom:0;
+	}
 }
 
 .edit-post-visual-editor.editor-styles-wrapper{
@@ -50,6 +54,10 @@
 	margin-right:0;
 }
 
+.block-editor-block-list__block .block-list-appender{
+	margin:15px 0;
+}
+
 //Editor stuff end
 
 .wp-block-cgb-block-fancypantsy-section-container-block  {
@@ -60,12 +68,17 @@
   max-width: 740px;
   padding: 2rem;
 }
+
+.wp-block-fp-section-container-block{
+
+}
+
 .wp-block-fp-section-container-block .block-editor-inner-blocks .editor-block-list__layout{
 	display: flex;
 	flex-flow: row wrap;
 	.wp-block{
 		flex:1;
-		margin-right:30px;
+		margin-right:45px;
 		box-sizing:border-box;
 		min-width:200px;
 
@@ -92,6 +105,11 @@
 
 .wp-admin .wp-block-fp-section-container-block{
 	overflow-x:visible;
+	padding:0 15px;
+}
+
+.wp-admin .wp-block-fp-column-block{
+	padding:0 15px;
 }
 
 .fp-custom-anchor-wrapper{
@@ -110,50 +128,7 @@
 }
 
 .custom-innerblock-modal{
-	width:92%;
-	height:90vh;
+	width:calc( 100% - 100px );
+	height:calc( 100vh - 100px );
+	max-height:calc( 100vh - 100px );
 }
-
-// .wp-block-fp-column-block{
-// 	.wp-block.is-selected{
-		
-// 		.acf-block-fields.acf-fields{
-// 			position: fixed;
-// 			top: 150px;
-// 			right: 40px;
-// 			left: 200px;
-// 			bottom: 40px;
-// 			padding: 30px;
-// 			overflow-y: scroll;
-// 			z-index: 300;
-// 			background: #FFF;
-// 			&:before{
-// 				content: "";
-// 				position: fixed;
-// 				top: 150px;
-// 				right: 40px;
-// 				left: 210px;
-// 				bottom: 0px;
-// 				background: #FFF;
-// 				z-index: -1;
-// 				height: calc( 100% - 190px );
-// 				pointer-events:auto;
-// 			}
-// 			&:after{
-// 				content: "";
-// 				position: fixed;
-// 				top: -150px;
-// 				right: -40px;
-// 				left: -200px;
-// 				bottom: -40px;
-// 				background: rgba(#000, 0.8);
-// 				z-index: -10;
-// 				pointer-events:auto;
-// 			}
-
-// 			.acf-field{
-// 				min-height:auto !important;
-// 			}
-// 		}
-// 	}
-// }

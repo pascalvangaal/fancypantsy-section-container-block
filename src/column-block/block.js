@@ -32,7 +32,7 @@ function returnAllowedBlocks(){
 
 const InnerBlockModal = withState( {
     isOpen: false,
-} )( ( { isOpen, setState } ) => (
+} )( ( { isOpen, setState, setEdit, setPreview } ) => (
     <div>
     	{ isOpen == false && (
             
@@ -43,25 +43,28 @@ const InnerBlockModal = withState( {
           
         ) }
         
-        <Button isDefault onClick={ () => setState( { isOpen: true } ) }>Bewerken in popup</Button>
+        <Button isDefault onClick={ () => setState( { isOpen: true }, setEdit )}>Bewerken in popup</Button>
 
         { isOpen && (
+
             <Modal
                 title="Blok aanpassen"
                 className="custom-innerblock-modal"
-                isDismissable={false}
-                shouldCloseOnEsc={false}
+                onRequestClose={ () => setState( { isOpen: false }, setPreview ) }
+                shouldCloseOnClickOutside={false}
                 >
-                <div className='hide-modal-btn-wrapper'>
-	                <Button isDefault onClick={ () => setState( { isOpen: false } ) }>
-	                    Popup verbergen
-	                </Button>
-                </div>
+                
 
 				<InnerBlocks 
 					allowedBlocks={ returnAllowedBlocks() }
                     templateLock={ false }
 				/>
+
+				<div className='hide-modal-btn-wrapper'>
+	                <Button className='components-button is-button is-primary' isDefault onClick={ () => setState( { isOpen: false }, setPreview ) }>
+	                    Popup verbergen
+	                </Button>
+                </div>
             </Modal>
         ) }
 
@@ -107,14 +110,33 @@ registerBlockType( 'fp/column-block', {
 	 * @returns {Mixed} JSX Component.
 	 */
 	edit: ( props ) => {
-		const { className, setAttributes, setState } = props;
+		const { className, setAttributes, setState, clientId } = props;
 
 		const { attributes, withState } = props;
 
+	 	const setEdit = (event) => {
+		 	
+	 		var col = wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0]['innerBlocks'][0];
+
+		 	wp.data.dispatch('core/block-editor').updateBlockAttributes(col.clientId, {
+		      mode: 'edit',
+		    });
+		}
+
+		const setPreview = (event) => {
+		 	
+	 		var col = wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0]['innerBlocks'][0];
+
+		 	wp.data.dispatch('core/block-editor').updateBlockAttributes(col.clientId, {
+		      mode: 'preview',
+		    });
+		}
+
 		return[
+			
 			<div className={ props.className }>
 				
-				<InnerBlockModal />
+				<InnerBlockModal setEdit={setEdit} setPreview={setPreview} />
 				
 			</div>
 		];
