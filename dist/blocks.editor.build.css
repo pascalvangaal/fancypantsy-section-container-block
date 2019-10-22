@@ -140,3 +140,6 @@
   border-color: rgba(66, 88, 99, 0.4);
   -webkit-box-shadow: inset 3px 0 0 0 #555d66;
           box-shadow: inset 3px 0 0 0 #555d66; }
+
+.acf-input .mce-tinymce.mce-panel {
+  display: block !important; }
