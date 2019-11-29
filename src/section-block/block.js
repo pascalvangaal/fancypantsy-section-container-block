@@ -124,7 +124,7 @@ registerBlockType( 'fp/section-container-block', {
 	 */
 	edit: ( props ) => {
 
-		const { className, setAttributes, setState } = props;
+		const { className, setAttributes, setState, clientId } = props;
 
 		const { attributes, withState } = props;
 
@@ -144,6 +144,8 @@ registerBlockType( 'fp/section-container-block', {
 		} = attributes;
 
 		let customAnchorVar;
+
+		props.className = 'wp-block-fp-section-container-block section';
 
 		function customAnchorFunction(){
 			if( customAnchor && customAnchor != '' ){
@@ -727,6 +729,8 @@ registerBlockType( 'fp/section-container-block', {
 		} = attributes;
 
 		let customAnchorVar;
+
+		props.className = 'wp-block-fp-section-container-block section';
 
 		function customAnchorFunction(){
 			if( customAnchor && customAnchor != '' ){

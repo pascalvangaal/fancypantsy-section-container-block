@@ -32,7 +32,7 @@ function returnAllowedBlocks(){
 
 const InnerBlockModal = withState( {
     isOpen: false,
-} )( ( { isOpen, setState, setEdit, setPreview } ) => (
+} )( ( { isOpen, setState, setEdit, setPreview, setInnerBlocksCount } ) => (
     <div>
     	{ isOpen == false && (
             
@@ -42,8 +42,9 @@ const InnerBlockModal = withState( {
 			/>
           
         ) }
-        
-        <Button isDefault onClick={ () => setState( { isOpen: true }, setEdit )}>Bewerken in popup</Button>
+        { setInnerBlocksCount == true && ( 
+        	<Button isDefault onClick={ () => setState( { isOpen: true }, setEdit )}>Bewerken in popup</Button>
+        ) }
 
         { isOpen && (
 
@@ -53,7 +54,6 @@ const InnerBlockModal = withState( {
                 onRequestClose={ () => setState( { isOpen: false }, setPreview ) }
                 shouldCloseOnClickOutside={false}
                 >
-                
 
 				<InnerBlocks 
 					allowedBlocks={ returnAllowedBlocks() }
@@ -67,8 +67,6 @@ const InnerBlockModal = withState( {
                 </div>
             </Modal>
         ) }
-
-        
     </div>
 ) );
 
@@ -132,11 +130,21 @@ registerBlockType( 'fp/column-block', {
 		    });
 		}
 
+		const setInnerBlocksCountF = () => {
+			var innerBlocksCount = wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0]['innerBlocks'];
+
+		 	if( innerBlocksCount.length === 0 ){
+		 		return false;
+		 	} else {
+		 		return true;
+		 	}
+		}
+
 		return[
 			
 			<div className={ props.className }>
 				
-				<InnerBlockModal setEdit={setEdit} setPreview={setPreview} />
+				<InnerBlockModal setEdit={setEdit} setPreview={setPreview} setInnerBlocksCount={setInnerBlocksCountF()} />
 				
 			</div>
 		];
@@ -155,9 +163,7 @@ registerBlockType( 'fp/column-block', {
 	 */
 	save: ( props ) => {
 		return (
-			<div className={ props.className }>
-				<InnerBlocks.Content />
-			</div>
+			<InnerBlocks.Content />
 		);
 	},
 } );
