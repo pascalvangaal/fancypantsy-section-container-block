@@ -591,6 +591,7 @@ registerBlockType( 'fp/section-container-block', {
 							label={ __( 'Section title heading' ) }
 							value={ sectionTitleHeading }
 							selected={ sectionTitleHeading }
+							className='title-heading-panel'
 							options={ [
 								{
 									value: 'h1',

@@ -136,3 +136,55 @@
 	height:calc( 100vh - 100px );
 	max-height:calc( 100vh - 100px );
 }
+
+.title-heading-panel{
+	width:100%;
+	max-width:none;
+	label{
+		width:100%;
+		display:block !important;
+	}
+	.components-base-control__label{
+		font-size:13px;
+	}
+	.components-base-control__field{
+		text-align:left;
+	}
+	div{
+		display:inline-block;
+		text-align:center;
+		label{
+			font-size:0;
+			&:before{
+				content:"";
+				display:block;
+				margin-top:2px;
+			}
+		}
+
+		&:nth-child( 2 ) label:before{
+			content:"H1";
+			font-size:24px;
+		}
+		&:nth-child( 3 ) label:before{
+			content:"H2";
+			font-size:22px;
+		}
+		&:nth-child( 4 ) label:before{
+			content:"H3";
+			font-size:20px;
+		}
+		&:nth-child( 5 ) label:before{
+			content:"H4";
+			font-size:18px;
+		}
+		&:nth-child( 6 ) label:before{
+			content:"H5";
+			font-size:16px;
+		}
+		&:nth-child( 7 ) label:before{
+			content:"H6";
+			font-size:14px;
+		}
+	}
+}
