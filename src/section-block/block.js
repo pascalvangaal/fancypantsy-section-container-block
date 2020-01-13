@@ -85,7 +85,7 @@ registerBlockType( 'fp/section-container-block', {
     	},
     	sectionMargin: {
     		type: 'string',
-    		default: '{ "top":"0", "right":"0", "bottom":"0", "left":"0" }',
+    		default: '{ "top":"0", "bottom":"0" }',
     	},
     	backgroundAlignment: {
 			type: 'string',
@@ -97,6 +97,7 @@ registerBlockType( 'fp/section-container-block', {
         },
         sectionTitle: {
             type: 'string',
+            default: '',
         },
         sectionTitleHeading: {
         	type: 'string',
@@ -105,6 +106,14 @@ registerBlockType( 'fp/section-container-block', {
         sectionTitleAlignment: {
         	type: 'string',
         	default: 'left'
+        },
+        sectionEnableInlinePadding: {
+        	type: 'boolean',
+        	default: false,
+        },
+        sectionEnableInlineMargin: {
+        	type: 'boolean',
+        	default: false,
         },
         customAnchor: {
         	type: 'string',
@@ -140,6 +149,8 @@ registerBlockType( 'fp/section-container-block', {
 			sectionTitle,
 			sectionTitleHeading,
 			sectionTitleAlignment,
+			sectionEnableInlinePadding,
+			sectionEnableInlineMargin,
 			customAnchor
 		} = attributes;
 
@@ -148,7 +159,7 @@ registerBlockType( 'fp/section-container-block', {
 		props.className = 'wp-block-fp-section-container-block section';
 
 		function customAnchorFunction(){
-			if( customAnchor && customAnchor != '' ){
+			if( customAnchor && customAnchor !== '' ){
 				return(
 					<div id={ customAnchor } className="section-anchor"></div>
 				);
@@ -159,31 +170,31 @@ registerBlockType( 'fp/section-container-block', {
 
 		let backgroundColorVal;
 
-		if( backgroundColor != '' ){
+		if( backgroundColor !== '' ){
 			backgroundColorVal = { backgroundColor: backgroundColor };
 		}
 
 		let backgroundImageVar;
 
-		if( backgroundImageUrl != '' && backgroundImageUrl != null ){
+		if( backgroundImageUrl !== '' && backgroundImageUrl !== null ){
 			backgroundImageVar = { backgroundImage: 'url('+attributes.backgroundImageUrl+')' };
 		}
 
 		let backgroundPositionVar;
 
-		if( backgroundImageUrl != '' && backgroundImageUrl != null ){
+		if( backgroundImageUrl !== '' && backgroundImageUrl !== null ){
 			backgroundPositionVar = { backgroundPosition: backgroundImagePosition };
 		}
 
 		let stickyBackgroundVar;
 
-		if( backgroundImageUrl != '' && backgroundImageUrl != null && stickySectionBackground == true ){
+		if( backgroundImageUrl !== '' && backgroundImageUrl !== null && stickySectionBackground == true ){
 			stickyBackgroundVar = { backgroundAttachment: 'fixed' };
 		}
 
 		let sectionBGAlignment;
 
-	    if( backgroundAlignment && backgroundAlignment != 'none' ){
+	    if( backgroundAlignment && backgroundAlignment !== 'none' ){
 	    	sectionBGAlignment = backgroundAlignment;
 	    }
 
@@ -192,14 +203,6 @@ registerBlockType( 'fp/section-container-block', {
 
 		let paddingStyles;
 		let marginStyles;
-
-		if( customPaddingObj !== 0 ){ 
-			paddingStyles = { padding: + parseInt( customPaddingObj.top ) + 'px' + ' ' + parseInt( customPaddingObj.right ) + 'px' + ' ' + parseInt( customPaddingObj.bottom ) + 'px' + ' ' +  parseInt( customPaddingObj.left ) + 'px' };
-		}
-
-		if( customMarginObj !== 0 ){ 
-			marginStyles = { margin: + parseInt( customMarginObj.top ) + 'px' + ' ' + parseInt( customMarginObj.right ) + 'px' + ' ' + parseInt( customMarginObj.bottom ) + 'px' + ' ' +  parseInt( customMarginObj.left ) + 'px' };
-		}
 
 		function saveSectionPadding( value, position ){
 
@@ -248,7 +251,8 @@ registerBlockType( 'fp/section-container-block', {
     	let color = 'transparent';
 
 		function backgroundPosition(){
-			if( backgroundImageUrl != null || backgroundColor != null ){
+			if( backgroundImageUrl !== null || backgroundColor !== null ){
+
 				return [
 
 					<PanelRow>
@@ -364,31 +368,31 @@ registerBlockType( 'fp/section-container-block', {
 
 			customClassName = 'section-title';
 
-			if( sectionTitleAlignment && sectionTitle != '' ){
+			if( sectionTitleAlignment && sectionTitle !== '' ){
 				customClassName += ' text-align-'+sectionTitleAlignment;
 			}
 
-			if( sectionTitle != '' && sectionTitleHeading == 'h1' ){
+			if( sectionTitle !== '' && sectionTitleHeading == 'h1' ){
 				return [
 					<h1 className={ customClassName }>{sectionTitle}</h1>
 				];
-			} else if( sectionTitle != '' && sectionTitleHeading == 'h2' ){
+			} else if( sectionTitle !== '' && sectionTitleHeading == 'h2' ){
 				return[
 					<h2 className={ customClassName }>{sectionTitle}</h2>
 				];
-			} else if( sectionTitle != '' && sectionTitleHeading == 'h3' ){
+			} else if( sectionTitle !== '' && sectionTitleHeading == 'h3' ){
 				return [
 					<h3 className={ customClassName }>{sectionTitle}</h3>
 				];
-			} else if( sectionTitle != '' && sectionTitleHeading == 'h4' ){
+			} else if( sectionTitle !== '' && sectionTitleHeading == 'h4' ){
 				return [
 					<h4 className={ customClassName }>{sectionTitle}</h4>
 				];
-			} else if( sectionTitle != '' && sectionTitleHeading == 'h5' ){
+			} else if( sectionTitle !== '' && sectionTitleHeading == 'h5' ){
 				return [
 					<h5 className={ customClassName }>{sectionTitle}</h5>
 				];
-			} else if( sectionTitle != '' && sectionTitleHeading == 'h6' ){
+			} else if( sectionTitle !== '' && sectionTitleHeading == 'h6' ){
 				return [
 					<h6 className={ customClassName }>{sectionTitle}</h6>
 				];
@@ -399,7 +403,7 @@ registerBlockType( 'fp/section-container-block', {
 
 		function sectionTitleAlignmentFunction(){
 
-			if( sectionTitle != '' ){ 
+			if( sectionTitle !== '' ){ 
 				return[
 					<PanelRow>
 
@@ -434,7 +438,7 @@ registerBlockType( 'fp/section-container-block', {
 
 		function anchorExample(){
 
-			if( customAnchor && customAnchor != '' ){ 
+			if( customAnchor && customAnchor !== '' ){ 
 
 				return(
 					<div class="anchor-example">
@@ -447,6 +451,105 @@ registerBlockType( 'fp/section-container-block', {
 
 				return false;
 			}
+		}
+
+		
+		function paddingWhitespaceFields(){
+
+			if( sectionEnableInlinePadding && sectionEnableInlinePadding === true ){
+
+				if( customPaddingObj !== 0 ){ 
+					paddingStyles = { padding: + parseInt( customPaddingObj.top ) + 'px' + ' ' + parseInt( customPaddingObj.right ) + 'px' + ' ' + parseInt( customPaddingObj.bottom ) + 'px' + ' ' +  parseInt( customPaddingObj.left ) + 'px' };
+				}
+
+				return [
+
+					<div>
+							
+						<div class="padding-wrapper">
+							<div class="custom-label">Padding <small>(in px)</small></div>
+						    <TextControl
+								type="number"
+						        label="Top"
+						        className='quarter-size'
+						        value={ customPaddingObj.top }
+							 	onChange={ (value) => saveSectionPadding( value, 'top' ) }		   
+							 />
+
+							 <TextControl
+								type="number"
+						        label="Right"
+						        className='quarter-size'
+						        value={ customPaddingObj.right }
+							 	onChange={ (value) => saveSectionPadding( value, 'right' ) }		   
+							 />
+
+							 <TextControl
+								type="number"
+						        label="Bottom"
+						        className='quarter-size'
+						        value={ customPaddingObj.bottom }
+							 	onChange={ (value) => saveSectionPadding( value, 'bottom' ) }		   
+							 />
+
+							 <TextControl
+								type="number"
+						        label="Left"
+						        className='quarter-size'
+						        value={ customPaddingObj.left }
+							 	onChange={ (value) => saveSectionPadding( value, 'left' ) }		   
+							 />
+
+						</div>
+
+					</div>
+				];
+
+			} else {
+				return false;
+			}
+
+		}
+
+		function marginWhitespaceFields(){
+
+			if( sectionEnableInlineMargin && sectionEnableInlineMargin === true ){
+
+				if( customMarginObj !== 0 ){ 
+					marginStyles = { marginTop: + parseInt( customMarginObj.top ) + 'px', marginBottom: + parseInt( customMarginObj.bottom ) + 'px' };
+				}
+
+				return [
+
+				<div>
+
+					<div class="margin-wrapper">
+						<div class="custom-label">Margin <small>(in px)</small></div>
+						<TextControl
+							type="number"
+							label="Top"
+							className='quarter-size'
+							value={ customMarginObj.top }
+								onChange={ (value) => saveSectionMargin( value, 'top' ) }		   
+						/>
+
+						<TextControl
+							type="number"
+							label="Bottom"
+							className='quarter-size'
+							value={ customMarginObj.bottom }
+							onChange={ (value) => saveSectionMargin( value, 'bottom' ) }		   
+						/>
+
+					</div>
+
+				</div>
+				];
+
+			} else {
+				return false;
+			}
+
 		}
 
 		return [
@@ -618,66 +721,27 @@ registerBlockType( 'fp/section-container-block', {
 					initialOpen={ false }
 				>
 					<PanelRow>
+						
+						<ToggleControl
+					        label="Inline padding"
+					        checked={ sectionEnableInlinePadding }
+					        onChange={ ( sectionEnableInlinePadding ) => { setAttributes( { sectionEnableInlinePadding: sectionEnableInlinePadding } ) } }
+					    />
+				    	
+				    </PanelRow>
+				    { paddingWhitespaceFields() }
 
-						<div class="padding-wrapper">
-							<div class="custom-label">Padding <small>(in px)</small></div>
-						    <TextControl
-								type="number"
-						        label="Top"
-						        className='quarter-size'
-						        value={ customPaddingObj.top }
-							 	onChange={ (value) => saveSectionPadding( value, 'top' ) }		   
-							 />
-
-							 <TextControl
-								type="number"
-						        label="Right"
-						        className='quarter-size'
-						        value={ customPaddingObj.right }
-							 	onChange={ (value) => saveSectionPadding( value, 'right' ) }		   
-							 />
-
-							 <TextControl
-								type="number"
-						        label="Bottom"
-						        className='quarter-size'
-						        value={ customPaddingObj.bottom }
-							 	onChange={ (value) => saveSectionPadding( value, 'bottom' ) }		   
-							 />
-
-							 <TextControl
-								type="number"
-						        label="Left"
-						        className='quarter-size'
-						        value={ customPaddingObj.left }
-							 	onChange={ (value) => saveSectionPadding( value, 'left' ) }		   
-							 />
-
-						</div>
-
-					</PanelRow>
-					<PanelRow>
-
-						<div class="margin-wrapper">
-							<div class="custom-label">Margin <small>(in px)</small></div>
-						    <TextControl
-								type="number"
-						        label="Top"
-						        className='quarter-size'
-						        value={ customMarginObj.top }
-							 	onChange={ (value) => saveSectionMargin( value, 'top' ) }		   
-							 />
-
-							 <TextControl
-								type="number"
-						        label="Bottom"
-						        className='quarter-size'
-						        value={ customMarginObj.bottom }
-							 	onChange={ (value) => saveSectionMargin( value, 'bottom' ) }		   
-							 />
-
-						</div>
-					</PanelRow>
+				    <PanelRow>
+						
+						<ToggleControl
+					        label="Inline margin"
+					        checked={ sectionEnableInlineMargin }
+					        onChange={ ( sectionEnableInlineMargin ) => { setAttributes( { sectionEnableInlineMargin: sectionEnableInlineMargin } ) } }
+					    />
+				    	
+				    </PanelRow>
+				    { marginWhitespaceFields() }
+				 
 				</PanelBody>
 
 			</InspectorControls>,
@@ -725,6 +789,8 @@ registerBlockType( 'fp/section-container-block', {
 			sectionTitle,
 			sectionTitleHeading,
 			sectionTitleAlignment,
+			sectionEnableInlinePadding,
+			sectionEnableInlineMargin,
 			customAnchor
 		} = attributes;
 
@@ -733,7 +799,7 @@ registerBlockType( 'fp/section-container-block', {
 		props.className = 'wp-block-fp-section-container-block section';
 
 		function customAnchorFunction(){
-			if( customAnchor && customAnchor != '' ){
+			if( customAnchor && customAnchor !== '' ){
 				return(
 					<div id={ customAnchor } className="section-anchor"></div>
 				);
@@ -748,31 +814,31 @@ registerBlockType( 'fp/section-container-block', {
 
 			customClassName = 'section-title';
 
-			if( sectionTitleAlignment && sectionTitle != '' ){
+			if( sectionTitleAlignment && sectionTitle !== '' ){
 				customClassName += ' text-align-'+sectionTitleAlignment;
 			}
 
-			if( sectionTitle != '' && sectionTitleHeading == 'h1' ){
+			if( sectionTitle !== '' && sectionTitleHeading == 'h1' ){
 				return [
 					<h1 className={ customClassName }>{sectionTitle}</h1>
 				];
-			} else if( sectionTitle != '' && sectionTitleHeading == 'h2' ){
+			} else if( sectionTitle !== '' && sectionTitleHeading == 'h2' ){
 				return[
 					<h2 className={ customClassName }>{sectionTitle}</h2>
 				];
-			} else if( sectionTitle != '' && sectionTitleHeading == 'h3' ){
+			} else if( sectionTitle !== '' && sectionTitleHeading == 'h3' ){
 				return [
 					<h3 className={ customClassName }>{sectionTitle}</h3>
 				];
-			} else if( sectionTitle != '' && sectionTitleHeading == 'h4' ){
+			} else if( sectionTitle !== '' && sectionTitleHeading == 'h4' ){
 				return [
 					<h4 className={ customClassName }>{sectionTitle}</h4>
 				];
-			} else if( sectionTitle != '' && sectionTitleHeading == 'h5' ){
+			} else if( sectionTitle !== '' && sectionTitleHeading == 'h5' ){
 				return [
 					<h5 className={ customClassName }>{sectionTitle}</h5>
 				];
-			} else if( sectionTitle != '' && sectionTitleHeading == 'h6' ){
+			} else if( sectionTitle !== '' && sectionTitleHeading == 'h6' ){
 				return [
 					<h6 className={ customClassName }>{sectionTitle}</h6>
 				];
@@ -783,31 +849,31 @@ registerBlockType( 'fp/section-container-block', {
 
 		let backgroundColorVal;
 
-		if( backgroundColor != '' ){
+		if( backgroundColor !== '' ){
 			backgroundColorVal = { backgroundColor: backgroundColor };
 		}
 
 		let backgroundImageVar;
 
-		if( backgroundImageUrl != '' && backgroundImageUrl != null ){
+		if( backgroundImageUrl !== '' && backgroundImageUrl !== null ){
 			backgroundImageVar = { backgroundImage: 'url('+attributes.backgroundImageUrl+')' };
 		}
 
 		let backgroundPositionVar;
 
-		if( backgroundImageUrl != '' && backgroundImageUrl != null ){
+		if( backgroundImageUrl !== '' && backgroundImageUrl !== null ){
 			backgroundPositionVar = { backgroundPosition: backgroundImagePosition };
 		}
 
 		let stickyBackgroundVar;
 
-		if( backgroundImageUrl != '' && backgroundImageUrl != null && stickySectionBackground == true ){
+		if( backgroundImageUrl !== '' && backgroundImageUrl !== null && stickySectionBackground == true ){
 			stickyBackgroundVar = { backgroundAttachment: 'fixed' };
 		}
 
 		let sectionBGAlignment;
 
-	    if( backgroundAlignment && backgroundAlignment != 'none' ){
+	    if( backgroundAlignment && backgroundAlignment !== 'none' ){
 	    	sectionBGAlignment = backgroundAlignment;
 	    }
 
@@ -817,12 +883,20 @@ registerBlockType( 'fp/section-container-block', {
 		let paddingStyles;
 		let marginStyles;
 
-		if( customPaddingObj !== 0 ){ 
-			paddingStyles = { padding: + parseInt( customPaddingObj.top ) + 'px' + ' ' + parseInt( customPaddingObj.right ) + 'px' + ' ' + parseInt( customPaddingObj.bottom ) + 'px' + ' ' +  parseInt( customPaddingObj.left ) + 'px' };
+		if( sectionEnableInlinePadding && sectionEnableInlinePadding === true ){
+
+			if( customPaddingObj !== 0 ){ 
+				paddingStyles = { padding: + parseInt( customPaddingObj.top ) + 'px' + ' ' + parseInt( customPaddingObj.right ) + 'px' + ' ' + parseInt( customPaddingObj.bottom ) + 'px' + ' ' +  parseInt( customPaddingObj.left ) + 'px' };
+			}
+
 		}
 
-		if( customMarginObj !== 0 ){ 
-			marginStyles = { margin: + parseInt( customMarginObj.top ) + 'px' + ' ' + parseInt( customMarginObj.right ) + 'px' + ' ' + parseInt( customMarginObj.bottom ) + 'px' + ' ' +  parseInt( customMarginObj.left ) + 'px' };
+		if( sectionEnableInlineMargin && sectionEnableInlineMargin === true ){
+
+			if( customMarginObj !== 0 ){ 
+				marginStyles = { marginTop: + parseInt( customMarginObj.top ) + 'px', marginBottom: + parseInt( customMarginObj.bottom ) + 'px' };
+			}
+
 		}
 
 		function saveSectionPadding( value, position ){
