@@ -20,9 +20,9 @@
 
 //Editor stuff start
 
-#block-editor-inserter__search-1:placeholder-shown + .editor-inserter__results .components-panel__body:first-of-type {
+/*#block-editor-inserter__search-1:placeholder-shown + .editor-inserter__results .components-panel__body:first-of-type {
   display: none;
-}
+}*/
 
 .edit-post-settings-sidebar__panel-block .components-panel__body .components-base-control{
 	width:100%;
@@ -71,10 +71,6 @@
   margin: 0 auto;
   max-width: 740px;
   padding: 2rem;
-}
-
-.wp-block-fp-section-container-block{
-
 }
 
 .wp-block-fp-section-container-block .block-editor-inner-blocks .editor-block-list__layout{

@@ -2,12 +2,13 @@
 /**
  * Plugin Name: Fancypantsy Section Container Block
  * Plugin URI: https://github.com/pascalvangaal/fancypantsy-section-container-block/
- * Description: A section container block for Gutenberg.
+ * Description: A Section Container Block for Gutenberg.
  * Author: Pascal van Gaal
- * Author URI: #
- * Version: 0.0.1
+ * Author URI: https://github.com/pascalvangaal/fancypantsy-section-container-block
+ * Version: 0.0.8
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain: fancypantsy-section-container-block
  *
  * @package CGB
  */

@@ -14,7 +14,6 @@ This all started out as a hobby of mine and the desire to try and make a _native
 - A anchor for your section to link to.
 - Inline margin/padding styling options.
 
-
 ## Upcomming features
 Below you fill find a list of upcoming features concerning the section or columns. These are in no particulair order. Unless I would receive requests for a certain feature. 
 
@@ -36,6 +35,9 @@ Below you fill find a list of upcoming features concerning the section or column
 ## Credit where it's due
 This project was bootstrapped with [Create Guten Block](https://github.com/ahmadawais/create-guten-block).
 
+#### Feedback
+Feedback is always welcome. It helps me to improve the the product for myself as well as for the community. Feel free to tweet and say hi at me [@Passmeister](https://twitter.com/Passmeister/)
+
 ---
 
-[![license](https://img.shields.io/cran/l/devtools)](https://github.com/pascalvangaal/fancypantsy-section-container-block/blob/master/LICENSE.txt)
+[![license](https://img.shields.io/cran/l/devtools)](https://github.com/pascalvangaal/fancypantsy-section-container-block/blob/master/LICENSE.txt)![Twitter Follow](https://img.shields.io/twitter/follow/Passmeister?style=social)

@@ -43,13 +43,13 @@ const InnerBlockModal = withState( {
           
         ) }
         { setInnerBlocksCount == true && ( 
-        	<Button isDefault onClick={ () => setState( { isOpen: true }, setEdit )}>Bewerken in popup</Button>
+        	<Button isDefault onClick={ () => setState( { isOpen: true }, setEdit )}>{ __( 'Edit in modal', 'fancypantsy-section-container-block' ) }</Button>
         ) }
 
         { isOpen && (
 
             <Modal
-                title="Blok aanpassen"
+                title={ __( 'Edit block', 'fancypantsy-section-container-block' ) }
                 className="custom-innerblock-modal"
                 onRequestClose={ () => setState( { isOpen: false }, setPreview ) }
                 shouldCloseOnClickOutside={false}
@@ -62,7 +62,7 @@ const InnerBlockModal = withState( {
 
 				<div className='hide-modal-btn-wrapper'>
 	                <Button className='components-button is-button is-primary' isDefault onClick={ () => setState( { isOpen: false }, setPreview ) }>
-	                    Popup verbergen
+	                    { __( 'Hide modal', 'fancypantsy-section-container-block' ) }
 	                </Button>
                 </div>
             </Modal>
@@ -88,12 +88,10 @@ registerBlockType( 'fp/column-block', {
 	title: __( 'Column block' ), // Block title.
 	icon: 'shield', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
-	supports: { inserter: false },
 	parent: ['fp/section-container-block'],
 	keywords: [
-		__( 'fancypantsy-section-container-block — CGB Block' ),
-		__( 'CGB Example' ),
-		__( 'create-guten-block' ),
+		__( 'Column block', 'fancypantsy-section-container-block' ),
+		__( 'Column', 'fancypantsy-section-container-block' ),
 	],
 
 	/**
@@ -140,6 +138,8 @@ registerBlockType( 'fp/column-block', {
 		 	}
 		}
 
+		props.className = 'wp-block-fp-column-block column';
+
 		return[
 			
 			<div className={ props.className }>
@@ -162,8 +162,15 @@ registerBlockType( 'fp/column-block', {
 	 * @returns {Mixed} JSX Frontend HTML.
 	 */
 	save: ( props ) => {
+		const { className, setAttributes, setState, clientId } = props;
+		const { attributes, withState } = props;
+
+		props.className = 'wp-block-fp-column-block column';
+
 		return (
-			<InnerBlocks.Content />
+			<div className={ props.className }>
+				<InnerBlocks.Content />
+			</div>
 		);
 	},
 } );

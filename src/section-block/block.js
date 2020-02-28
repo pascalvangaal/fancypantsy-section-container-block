@@ -258,24 +258,24 @@ registerBlockType( 'fp/section-container-block', {
 					<PanelRow>
 
 						<SelectControl
-							label={ __( 'Achtergrond uitlijning' ) }
+							label={ __( 'Background alignment', 'fancypantsy-section-container-block' ) }
 							value={ backgroundAlignment }
 							options={ [
 								{
 									value: 'none',
-									label: __( 'Midden uitlijnen' ),
+									label: __( 'Align center', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: 'align-left',
-									label: __( 'Links uitlijnen' ),
+									label: __( 'Align left', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: 'align-right',
-									label: __( 'Rechts uitlijnen' ),
+									label: __( 'Align right', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: 'align-fullwidth',
-									label: __( 'Volle breedte' ),
+									label: __( 'Fullwidth', 'fancypantsy-section-container-block' ),
 								},
 							] }
 
@@ -297,51 +297,51 @@ registerBlockType( 'fp/section-container-block', {
 			return[
 				<PanelRow>
 					<ToggleControl
-				        label="Sticky achtergrond"
+				        label={__( 'Sticky background', 'fancypantsy-section-container-block' ) }
 				        checked={ stickySectionBackground }
 				        onChange={ ( stickySectionBackground ) => { setAttributes( { stickySectionBackground: stickySectionBackground } ) } }
 				    />
 				</PanelRow>,
 				<PanelRow>
 					<SelectControl
-						label={ __( 'Achtergrond positie' ) }
+						label={ __( 'Background position', 'fancypantsy-section-container-block' ) }
 						value={ backgroundImagePosition }
 						options={ [
 							{
 								value: 'top left',
-								label: __( 'Boven links' ),
+								label: __( 'Top left', 'fancypantsy-section-container-block' ),
 							},
 							{
 								value: 'top center',
-								label: __( 'Boven midden' ),
+								label: __( 'Top center', 'fancypantsy-section-container-block' ),
 							},
 							{
 								value: 'Boven rechts',
-								label: __( 'Boven rechts' ),
+								label: __( 'Top right', 'fancypantsy-section-container-block' ),
 							},
 							{
 								value: 'center left',
-								label: __( 'Midden links' ),
+								label: __( 'Center left', 'fancypantsy-section-container-block' ),
 							},
 							{
 								value: 'center center',
-								label: __( 'Midden midden' ),
+								label: __( 'Center center', 'fancypantsy-section-container-block' ),
 							},
 							{
 								value: 'center right',
-								label: __( 'Midden rechts' ),
+								label: __( 'Center right', 'fancypantsy-section-container-block' ),
 							},
 							{
 								value: 'bottom left',
-								label: __( 'Beneden links' ),
+								label: __( 'Bottom left', 'fancypantsy-section-container-block' ),
 							},
 							{
 								value: 'bottom center',
-								label: __( 'Beneden midden' ),
+								label: __( 'Bottom center', 'fancypantsy-section-container-block' ),
 							},
 							{
 								value: 'bottom right',
-								label: __( 'Beneden rechts' ),
+								label: __( 'Bottom right', 'fancypantsy-section-container-block' ),
 							},
 						] }
 
@@ -358,7 +358,7 @@ registerBlockType( 'fp/section-container-block', {
 			}
 
 			return(
-				<span class="remove-section-img" onClick={removeImage}> { __( 'Remove' ) } </span>
+				<span class="remove-section-img" onClick={removeImage}> { __( 'Remove', 'fancypantsy-section-container-block' ) } </span>
 			);
 		};
 
@@ -408,21 +408,21 @@ registerBlockType( 'fp/section-container-block', {
 					<PanelRow>
 
 						<RadioControl
-							label={ __( 'Section title uitlijning' ) }
+							label={ __( 'Section title alignment', 'fancypantsy-section-container-block' ) }
 							value={ sectionTitleAlignment }
 							selected={ sectionTitleAlignment }
 							options={ [
 								{
 									value: 'left',
-									label: __( 'Links' ),
+									label: __( 'Align Left', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: 'center',
-									label: __( 'Centreren' ),
+									label: __( 'Align center', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: 'right',
-									label: __( 'rechts' ),
+									label: __( 'Align right', 'fancypantsy-section-container-block' ),
 								},
 							] }
 
@@ -442,7 +442,7 @@ registerBlockType( 'fp/section-container-block', {
 
 				return(
 					<div class="anchor-example">
-						<p>Gebruik het dikgedruikte stuk tekst om na een section te kunnen linken.</p>
+						<p>{__( 'Use the strong element as a link for this section', 'fancypantsy-section-container-block' )}</p>
 						<strong>#{ customAnchor }</strong>
 					</div>
 				);
@@ -555,7 +555,7 @@ registerBlockType( 'fp/section-container-block', {
 		return [
 			<InspectorControls>
 				<PanelBody
-					title={ __( 'Anchor' ) }
+					title={ __( 'Anchor', 'fancypantsy-section-container-block' ) }
 					initialOpen={ false }
 				>
 					<PanelRow>
@@ -563,7 +563,7 @@ registerBlockType( 'fp/section-container-block', {
 							{ anchorExample() }
 
 							<TextControl
-						        label="Anchor"
+						        label={ __( 'Anchor', 'fancypantsy-section-container-block' ) }
 						        placeholder="#Anchor"
 						        value={ customAnchor }
 						        onChange={ ( value ) => setAttributes( { customAnchor: value } ) }
@@ -572,14 +572,14 @@ registerBlockType( 'fp/section-container-block', {
 					</PanelRow>
 				</PanelBody>
 				<PanelBody
-					title={ __( 'Instellingen' ) }
+					title={ __( 'Settings', 'fancypantsy-section-container-block' ) }
 					initialOpen={ true }
 				>
 					<PanelRow>
 
 						<TextControl
-					        label="Section title"
-					        placeholder="Vul hier een section title in.."
+					        label={__( 'Section title', 'fancypantsy-section-container-block' ) }
+					        placeholder={__( 'Enter your section title here', 'fancypantsy-section-container-block' ) }
 					        value={ sectionTitle }
 					        onChange={ ( value ) => setAttributes( { sectionTitle: value } ) }
 					    />
@@ -588,34 +588,34 @@ registerBlockType( 'fp/section-container-block', {
 					<PanelRow>
 
 						<RadioControl
-							label={ __( 'Section title heading' ) }
+							label={ __( 'Section title heading', 'fancypantsy-section-container-block' ) }
 							value={ sectionTitleHeading }
 							selected={ sectionTitleHeading }
 							className='title-heading-panel'
 							options={ [
 								{
 									value: 'h1',
-									label: __( 'H1' ),
+									label: __( 'H1', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: 'h2',
-									label: __( 'H2' ),
+									label: __( 'H2', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: 'h3',
-									label: __( 'H3' ),
+									label: __( 'H3', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: 'h4',
-									label: __( 'H4' ),
+									label: __( 'H4', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: 'h5',
-									label: __( 'H5' ),
+									label: __( 'H5', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: 'h6',
-									label: __( 'H6' ),
+									label: __( 'H6', 'fancypantsy-section-container-block' ),
 								},
 							] }
 
@@ -627,24 +627,24 @@ registerBlockType( 'fp/section-container-block', {
 					<PanelRow>
 
 						<SelectControl
-							label={ __( 'Blokken langs elkaar' ) }
+							label={ __( 'Amount of blocks', 'fancypantsy-section-container-block' ) }
 							value={ columnsAmount }
 							options={ [
 								{
 									value: '1',
-									label: __( '1' ),
+									label: __( '1', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: '2',
-									label: __( '2' ),
+									label: __( '2', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: '3',
-									label: __( '3' ),
+									label: __( '3', 'fancypantsy-section-container-block' ),
 								},
 								{
 									value: '4',
-									label: __( '4' ),
+									label: __( '4', 'fancypantsy-section-container-block' ),
 								},
 							] }
 
@@ -655,7 +655,7 @@ registerBlockType( 'fp/section-container-block', {
 				</PanelBody>
 				
 				<PanelBody
-					title={ __( 'Achtergrond' ) }
+					title={ __( 'Background', 'fancypantsy-section-container-block' ) }
 					initialOpen={ false }
 				>
 
@@ -663,7 +663,7 @@ registerBlockType( 'fp/section-container-block', {
 						
 						<div className="components-base-control">
 							
-							<label class="components-base-control__label">{ __( 'Afbeelding' ) }</label>
+							<label class="components-base-control__label">{ __( 'Image', 'fancypantsy-section-container-block' ) }</label>
 							<MediaUpload 
 								onSelect={selectImage}
 								render={ ({open}) => {
@@ -684,7 +684,7 @@ registerBlockType( 'fp/section-container-block', {
 											className={'components-button is-primary is-default'}
 											src={backgroundImageUrl}
 											onClick={open}
-											>Afbeelding aanpassen
+											>{ __( 'Add image', 'fancypantsy-section-container-block' ) }
 										</button>;
 									}}
 								/>
@@ -702,7 +702,7 @@ registerBlockType( 'fp/section-container-block', {
 					<PanelRow>
 						
 						<div>
-							<label class="components-base-control__label">{ __( 'Achtergrond kleur' ) }</label>
+							<label class="components-base-control__label">{ __( 'Background color', 'fancypantsy-section-container-block' ) }</label>
 
 							<ColorPalette
 					            colors={ bgColors }
@@ -718,13 +718,13 @@ registerBlockType( 'fp/section-container-block', {
 
 				</PanelBody>
 				<PanelBody
-					title={ __( 'Witruimte' ) }
+					title={ __( 'Whitespace', 'fancypantsy-section-container-block' ) }
 					initialOpen={ false }
 				>
 					<PanelRow>
 						
 						<ToggleControl
-					        label="Inline padding"
+					        label={ __( 'Inline padding', 'fancypantsy-section-container-block' ) }
 					        checked={ sectionEnableInlinePadding }
 					        onChange={ ( sectionEnableInlinePadding ) => { setAttributes( { sectionEnableInlinePadding: sectionEnableInlinePadding } ) } }
 					    />
@@ -735,7 +735,7 @@ registerBlockType( 'fp/section-container-block', {
 				    <PanelRow>
 						
 						<ToggleControl
-					        label="Inline margin"
+					        label={ __( 'Inline margin', 'fancypantsy-section-container-block' ) }
 					        checked={ sectionEnableInlineMargin }
 					        onChange={ ( sectionEnableInlineMargin ) => { setAttributes( { sectionEnableInlineMargin: sectionEnableInlineMargin } ) } }
 					    />

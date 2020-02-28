@@ -94,6 +94,8 @@ function fp_section_container_block_assets() { // phpcs:ignore
 	function fp_section_container_block_callback( $attributes, $content ) {
 		return html_entity_decode( $content );
 	}
+
+	wp_set_script_translations( 'translation-script', 'fancypantsy-section-container-block' );
 }
 
 // Hook: Block assets.
