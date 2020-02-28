@@ -1,5 +1,5 @@
 # FancyPantsy Section Container Block
-This all started out as a hobby of mine and the desire to try out making a _native_ Gutenberg block for the WordPress editor. So I thought to myself: "I might as well give something back to the community". So this repo is free to use for anybody who sees any use for it.
+This all started out as a hobby of mine and the desire to try and make a _native_ Gutenberg block for the WordPress editor. So I thought to myself: "I might as well give something back to the community". So this repo is free to use for anybody who sees any use for it.
 
 ## Features
 - Custom background for your section
@@ -11,6 +11,8 @@ This all started out as a hobby of mine and the desire to try out making a _nati
 - - Position option
 - A container block which **contains up to 4 columns**.
 - - Here you are able to select either 1, 2, 3 or 4 columns which you can use to your hearts content.
+- A anchor for your section to link to.
+- Inline margin/padding styling options.
 
 
 ## Upcomming features
