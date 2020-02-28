@@ -1,25 +1,39 @@
+# FancyPantsy Section Container Block
+This all started out as a hobby of mine and the desire to try out making a _native_ Gutenberg block for the WordPress editor. So I thought to myself: "I might as well give something back to the community". So this repo is free to use for anybody who sees any use for it.
+
+## Features
+- Custom background for your section
+-- Background image with position options.
+-- Background color.
+-- Option to position the background div to multiple locations.
+- Section title
+-- Heading type option
+-- Position option
+- A container block which **contains up to 4 columns**.
+-- Here you are able to select either 1, 2, 3 or 4 columns which you can use to your hearts content.
+
+
+## Upcomming features
+Below you fill find a list of upcoming features concerning the section or columns. These are in no particulair order. Unless I would receive requests for a certain feature. 
+
+### Section
+- Settingspage with the ability to **only pick** the features you need.
+- I18N for the entire plugin.
+-- Dutch
+-- English
+-- T.B.D.
+- Button option for the whole section.
+-- Position option left - center - right
+-- Label
+-- Link
+-- Target
+
+### Column
+-- More column layout Options. Instead of only the ability to either use 1, 2, 3 or 4 columns in equal width, the ability to choose some more dynamic presets.
+
+## Credit where it's due
 This project was bootstrapped with [Create Guten Block](https://github.com/ahmadawais/create-guten-block).
-
-Below you will find some information on how to run scripts.
-
->You can find the most recent version of this guide [here](https://github.com/ahmadawais/create-guten-block).
-
-## 👉  `npm start`
-- Use to compile and run the block in development mode.
-- Watches for any changes and reports back any errors in your code.
-
-## 👉  `npm run build`
-- Use to build production code for your block inside `dist` folder.
-- Runs once and reports back the gzip file sizes of the produced code.
-
-## 👉  `npm run eject`
-- Use to eject your plugin out of `create-guten-block`.
-- Provides all the configurations so you can customize the project as you want.
-- It's a one-way street, `eject` and you have to maintain everything yourself.
-- You don't normally have to `eject` a project because by ejecting you lose the connection with `create-guten-block` and from there onwards you have to update and maintain all the dependencies on your own.
 
 ---
 
-###### Feel free to tweet and say 👋 at me [@MrAhmadAwais](https://twitter.com/mrahmadawais/)
-
-[![npm](https://img.shields.io/npm/v/create-guten-block.svg?style=flat-square)](https://www.npmjs.com/package/create-guten-block) [![npm](https://img.shields.io/npm/dt/create-guten-block.svg?style=flat-square&label=downloads)](https://www.npmjs.com/package/create-guten-block)  [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/ahmadawais/create-guten-block) [![Tweet for help](https://img.shields.io/twitter/follow/mrahmadawais.svg?style=social&label=Tweet%20@MrAhmadAwais)](https://twitter.com/mrahmadawais/) [![GitHub stars](https://img.shields.io/github/stars/ahmadawais/create-guten-block.svg?style=social&label=Stars)](https://github.com/ahmadawais/create-guten-block/stargazers) [![GitHub followers](https://img.shields.io/github/followers/ahmadawais.svg?style=social&label=Follow)](https://github.com/ahmadawais?tab=followers)
+[![license](https://img.shields.io/cran/l/devtools)](https://github.com/pascalvangaal/fancypantsy-section-container-block/blob/master/license.txt)
