@@ -13,6 +13,8 @@ This all started out as a hobby of mine and the desire to try and make a _native
 - - Here you are able to select either 1, 2, 3 or 4 columns which you can use to your hearts content.
 - A anchor for your section to link to.
 - Inline margin/padding styling options.
+- ACF support.
+- - When you edit in a modal, ACF shows the editable fields. And in the normal mode the "preview" version.
 
 ## Upcomming features
 Below you fill find a list of upcoming features concerning the section or columns. These are in no particulair order. Unless I would receive requests for a certain feature. 
@@ -20,8 +22,8 @@ Below you fill find a list of upcoming features concerning the section or column
 ### Section
 - Settingspage with the ability to **only pick** the features you need.
 - I18N for the entire plugin.
-- - Dutch
-- - English
+- - ~~Dutch~~
+- - ~~English~~
 - - T.B.D.
 - Button option for the whole section.
 - - Position option left - center - right

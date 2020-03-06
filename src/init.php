@@ -95,7 +95,13 @@ function fp_section_container_block_assets() { // phpcs:ignore
 		return html_entity_decode( $content );
 	}
 
-	wp_set_script_translations( 'translation-script', 'fancypantsy-section-container-block' );
+	wp_enqueue_script('fp_section_container_block_js');
+
+	// var_export( plugin_dir_path( __DIR__ ) . 'languages' );
+	// die();
+
+	wp_set_script_translations( 'fp_section_container_block_js', 'fancypantsy-section-container-block', plugin_dir_path( __DIR__ ) . 'languages' );
+
 }
 
 // Hook: Block assets.

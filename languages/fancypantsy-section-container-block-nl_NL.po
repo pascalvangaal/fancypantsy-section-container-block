@@ -1,0 +1,279 @@
+# Copyright (C) 2020 Pascal van Gaal
+# This file is distributed under the same license as the Fancypantsy Section Container Block plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Fancypantsy Section Container Block 0.0.8\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fancypantsy-section-container-block\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-02-29T16:03:36+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: fancypantsy-section-container-block\n"
+
+#. Plugin Name of the plugin
+msgid "Fancypantsy Section Container Block"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/pascalvangaal/fancypantsy-section-container-block/"
+msgstr ""
+
+#. Description of the plugin
+msgid "A Section Container Block for Gutenberg."
+msgstr ""
+
+#. Author of the plugin
+msgid "Pascal van Gaal"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://github.com/pascalvangaal/fancypantsy-section-container-block"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:558
+#: src/section-block/block.js:566
+msgid "Anchor"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:445
+msgid "Use the strong element as a link for this section"
+msgstr "Gebruik het dik gedrukte element als een link voor deze sectie"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:575
+msgid "Settings"
+msgstr "Instellingen"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:581
+msgid "Section title"
+msgstr "Sectie titel"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:582
+msgid "Enter your section title here"
+msgstr "Typ je sectie titel hier"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:591
+msgid "Section title heading"
+msgstr "Sectie titel kop"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:598
+msgid "H1"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:602
+msgid "H2"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:606
+msgid "H3"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:610
+msgid "H4"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:614
+msgid "H5"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:618
+msgid "H6"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:411
+msgid "Section title alignment"
+msgstr "Sectie titel uitlijning"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:417
+msgid "Align Left"
+msgstr "Links uitlijnen"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:266
+#: src/section-block/block.js:421
+msgid "Align center"
+msgstr "Midden uitlijnen"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:274
+#: src/section-block/block.js:425
+msgid "Align right"
+msgstr "Rechts uitlijnen"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:630
+msgid "Amount of blocks"
+msgstr "Aantal blokken"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:635
+msgid "1"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:639
+msgid "2"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:643
+msgid "3"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:647
+msgid "4"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:658
+msgid "Background"
+msgstr "Achtergrond"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:666
+msgid "Image"
+msgstr "Afbeelding"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:687
+msgid "Add image"
+msgstr "Afbeelding toevoegen"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:361
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:300
+msgid "Sticky background"
+msgstr "'sticky' achtergrond"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:307
+msgid "Background position"
+msgstr "Achtergrond positie"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:312
+msgid "Top left"
+msgstr "Links boven"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:316
+msgid "Top center"
+msgstr "Boven midden"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:320
+msgid "Top right"
+msgstr "Rechts boven"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:324
+msgid "Center left"
+msgstr "Midden links"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:328
+msgid "Center center"
+msgstr "Midden midden"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:332
+msgid "Center right"
+msgstr "Midden rechts"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:336
+msgid "Bottom left"
+msgstr "Beneden links"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:340
+msgid "Bottom center"
+msgstr "Beneden midden"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:344
+msgid "Bottom right"
+msgstr "Beneden rechts"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:705
+msgid "Background color"
+msgstr "Achtergrond kleur"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:261
+msgid "Background alignment"
+msgstr "Achtergrond uitlijning"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:270
+msgid "Align left"
+msgstr "Links uitlijnen"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:278
+msgid "Fullwidth"
+msgstr "Volle breedte"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:721
+msgid "Whitespace"
+msgstr "Witruimte"
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:727
+msgid "Inline padding"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:738
+msgid "Inline margin"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/column-block/block.js:46
+msgid "Edit in modal"
+msgstr "Bewerken in popup"
+
+#: dist/blocks.build.js:1
+#: src/column-block/block.js:52
+msgid "Edit block"
+msgstr "Blok bewerken"
+
+#: dist/blocks.build.js:1
+#: src/column-block/block.js:65
+msgid "Hide modal"
+msgstr "Verberg popup"
+
+#: dist/blocks.build.js:1
+#: src/column-block/block.js:93
+msgid "Column block"
+msgstr "Kolom blok"
+
+#: dist/blocks.build.js:1
+#: src/column-block/block.js:94
+msgid "Column"
+msgstr "Kolom"

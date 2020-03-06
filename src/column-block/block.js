@@ -106,35 +106,45 @@ registerBlockType( 'fp/column-block', {
 	 * @returns {Mixed} JSX Component.
 	 */
 	edit: ( props ) => {
+
 		const { className, setAttributes, setState, clientId } = props;
 
 		const { attributes, withState } = props;
 
 	 	const setEdit = (event) => {
 		 	
-	 		var col = wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0]['innerBlocks'][0];
+		 	if( wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0]['innerBlocks'] != null ){ 
 
-		 	wp.data.dispatch('core/block-editor').updateBlockAttributes(col.clientId, {
-		      mode: 'edit',
-		    });
+		 		var col = wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0]['innerBlocks'][0];
+
+			 	wp.data.dispatch('core/block-editor').updateBlockAttributes(col.clientId, {
+			      mode: 'edit',
+			    });
+		 	}
 		}
 
 		const setPreview = (event) => {
 		 	
-	 		var col = wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0]['innerBlocks'][0];
+		 	if( wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0]['innerBlocks'] != null ){ 
+		 		var col = wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0]['innerBlocks'][0];
 
-		 	wp.data.dispatch('core/block-editor').updateBlockAttributes(col.clientId, {
-		      mode: 'preview',
-		    });
+			 	wp.data.dispatch('core/block-editor').updateBlockAttributes(col.clientId, {
+			      mode: 'preview',
+			    });
+		    }
 		}
 
 		const setInnerBlocksCountF = () => {
-			var innerBlocksCount = wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0]['innerBlocks'];
+			if( wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0] != null ){
+				
+				var innerBlocksCount = wp.data.select('core/block-editor').getBlocksByClientId(clientId)[0]['innerBlocks'];
 
-		 	if( innerBlocksCount.length === 0 ){
-		 		return false;
-		 	} else {
-		 		return true;
+			 	if( innerBlocksCount.length === 0 ){
+			 		return false;
+			 	} else {
+			 		return true;
+			 	}
+
 		 	}
 		}
 

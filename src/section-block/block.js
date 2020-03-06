@@ -41,6 +41,8 @@ const {
 
 const { times } = lodash;
 
+console.log(wp.i18n.__('Settings', 'fancypantsy-section-container-block'));
+
 /**
  * Register: aa Gutenberg Block.
  *
