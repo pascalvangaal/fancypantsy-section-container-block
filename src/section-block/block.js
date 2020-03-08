@@ -13,6 +13,7 @@ const { __ } = wp.i18n; // Import __() from wp.i18n
 
 const { 
 	registerBlockType,
+	createBlock 
 } = wp.blocks; // Import registerBlockType() from wp.blocks
 
 const { 
@@ -35,13 +36,20 @@ const {
     ColorPalette
 } = wp.components;
 
+const { 
+	withDispatch, 
+	useDispatch, 
+} = wp.data;
+
+const { 
+	times,
+	dropRight, 
+} = lodash;
+
+
 const {
     Fragment
 } = wp.element;
-
-const { times } = lodash;
-
-console.log(wp.i18n.__('Settings', 'fancypantsy-section-container-block'));
 
 /**
  * Register: aa Gutenberg Block.
@@ -159,6 +167,34 @@ registerBlockType( 'fp/section-container-block', {
 		let customAnchorVar;
 
 		props.className = 'wp-block-fp-section-container-block section';
+
+		function updateColumns( previousColumns, newColumns ) {
+
+			setAttributes( { columnsAmount: parseInt(newColumns) } );
+
+			const { replaceInnerBlocks } = wp.data.dispatch( 'core/block-editor' );
+			const { getBlocks } = wp.data.select( 'core/block-editor' );
+
+			let innerBlocks = getBlocks( clientId );
+
+			const isAddingColumn = newColumns > previousColumns;
+
+			if ( isAddingColumn ) {
+				innerBlocks = [
+					...innerBlocks,
+					...times( newColumns - previousColumns, () => {
+						return createBlock( 'fp/column-block' );
+					} ),
+				];
+			} else {
+				innerBlocks = dropRight(
+					innerBlocks,
+					previousColumns - newColumns
+				);
+			}
+
+			replaceInnerBlocks( clientId, innerBlocks, false );
+		}
 
 		function customAnchorFunction(){
 			if( customAnchor && customAnchor !== '' ){
@@ -650,7 +686,7 @@ registerBlockType( 'fp/section-container-block', {
 								},
 							] }
 
-							onChange={ ( value ) => setAttributes( { columnsAmount: parseInt(value) } ) }
+							onChange={ ( value ) => updateColumns( columnsAmount, value ) }
 						/>
 
 					</PanelRow>
@@ -754,8 +790,8 @@ registerBlockType( 'fp/section-container-block', {
 					<div className="background-element" style={{...backgroundPositionVar, ...backgroundImageVar, ...backgroundColorVal, ...stickyBackgroundVar }}></div>
 					{ headingFunction() }
 					<InnerBlocks 
-	   				 	template={ times( parseInt(columnsAmount), () => [ 'fp/column-block' ] ) }
-	   				 	templateLock="all"
+	   				 	template={ times( 1, () => [ 'fp/column-block' ] ) }
+	   				 	templateLock="insert"
 	   				 	allowedBlocks={ [ 'fp/column-block' ] }
 		   			/>
 	   			</div>
