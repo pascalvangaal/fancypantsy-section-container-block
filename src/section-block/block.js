@@ -33,7 +33,8 @@ const {
     Panel,
     PanelBody,
     PanelRow,
-    ColorPalette
+    ColorPalette,
+    FocalPointPicker
 } = wp.components;
 
 const { 
@@ -67,19 +68,29 @@ const {
 registerBlockType( 'fp/section-container-block', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'Section container block' ), // Block title.
-	icon: 'shield', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
-	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
+	icon: 'schedule', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
+	category: 'fancypantsy', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
 		__( 'Section' ),
 		__( 'Container' ),
 		__( 'Wrapper' ),
 	],
+	description: __( 'A fully customisable section container block', 'fancypantsy-section-container-block' ),
 	attributes: {
 	    backgroundImagePosition: {
-			type: 'string',
+			type: 'object',
+			default: {x:0.5, y:0.5}
 		},
 	    backgroundImageUrl: {
         	type: 'string',
+        	default: null
+    	},
+    	backgroundImageHeight: {
+        	type: 'number',
+        	default: null
+    	},
+    	backgroundImageWidth: {
+        	type: 'number',
         	default: null
     	},
     	backgroundColor: {
@@ -129,6 +140,18 @@ registerBlockType( 'fp/section-container-block', {
         	type: 'string',
         }
 	},
+	example: {
+	    attributes: {
+	        sectionTitle: 'Title',
+	        backgroundColor: '#e3e3e3',
+	        columnsAmount: '4',
+	        backgroundAlignment: 'align-fullwidth',
+	        sectionTitleAlignment: 'center',
+	        sectionEnableInlinePadding: true,
+	        sectionPadding: '{ "top":"20px", "right":"0", "bottom":"80px", "left":"0" }'
+
+	    },
+	},
 
 	/**
 	 * The edit function describes the structure of your block in the context of the editor.
@@ -155,6 +178,8 @@ registerBlockType( 'fp/section-container-block', {
 			backgroundColor,
 			columnsAmount,
 			backgroundImageUrl,
+			backgroundImageHeight,
+			backgroundImageWidth,
 			backgroundAlignment,
 			sectionTitle,
 			sectionTitleHeading,
@@ -165,6 +190,8 @@ registerBlockType( 'fp/section-container-block', {
 		} = attributes;
 
 		let customAnchorVar;
+
+		const TEMPLATE = [ [ 'fp/column-block', {} ] ];
 
 		props.className = 'wp-block-fp-section-container-block section';
 
@@ -221,7 +248,10 @@ registerBlockType( 'fp/section-container-block', {
 		let backgroundPositionVar;
 
 		if( backgroundImageUrl !== '' && backgroundImageUrl !== null ){
-			backgroundPositionVar = { backgroundPosition: backgroundImagePosition };
+			let bgXPos = (backgroundImagePosition.x * 100)+'%';
+			let bgYPos = (backgroundImagePosition.y * 100)+'%';
+			
+			backgroundPositionVar = { backgroundPosition: bgXPos+' '+bgYPos };
 		}
 
 		let stickyBackgroundVar;
@@ -275,6 +305,8 @@ registerBlockType( 'fp/section-container-block', {
 		function selectImage(value) {
 		    setAttributes({
 		        backgroundImageUrl: value.sizes.full.url,
+		        backgroundImageHeight: value.height,
+		        backgroundImageWidth: value.width,
 		    })
 		};
 
@@ -341,49 +373,15 @@ registerBlockType( 'fp/section-container-block', {
 				    />
 				</PanelRow>,
 				<PanelRow>
-					<SelectControl
-						label={ __( 'Background position', 'fancypantsy-section-container-block' ) }
+					<FocalPointPicker
+						label={ __( 'Focal Point Picker' ) }
+						url={ backgroundImageUrl }
+						dimensions={  {
+							width: backgroundImageWidth,
+					 		height: backgroundImageHeight
+					 	} }
 						value={ backgroundImagePosition }
-						options={ [
-							{
-								value: 'top left',
-								label: __( 'Top left', 'fancypantsy-section-container-block' ),
-							},
-							{
-								value: 'top center',
-								label: __( 'Top center', 'fancypantsy-section-container-block' ),
-							},
-							{
-								value: 'Boven rechts',
-								label: __( 'Top right', 'fancypantsy-section-container-block' ),
-							},
-							{
-								value: 'center left',
-								label: __( 'Center left', 'fancypantsy-section-container-block' ),
-							},
-							{
-								value: 'center center',
-								label: __( 'Center center', 'fancypantsy-section-container-block' ),
-							},
-							{
-								value: 'center right',
-								label: __( 'Center right', 'fancypantsy-section-container-block' ),
-							},
-							{
-								value: 'bottom left',
-								label: __( 'Bottom left', 'fancypantsy-section-container-block' ),
-							},
-							{
-								value: 'bottom center',
-								label: __( 'Bottom center', 'fancypantsy-section-container-block' ),
-							},
-							{
-								value: 'bottom right',
-								label: __( 'Bottom right', 'fancypantsy-section-container-block' ),
-							},
-						] }
-
-						onChange={ ( selectedOption ) => setAttributes( { backgroundImagePosition: selectedOption } ) }
+						onChange={ ( value ) => setAttributes( { backgroundImagePosition: value } ) }
 					/>
 				</PanelRow>
 			];
@@ -790,7 +788,8 @@ registerBlockType( 'fp/section-container-block', {
 					<div className="background-element" style={{...backgroundPositionVar, ...backgroundImageVar, ...backgroundColorVal, ...stickyBackgroundVar }}></div>
 					{ headingFunction() }
 					<InnerBlocks 
-	   				 	template={ times( 1, () => [ 'fp/column-block' ] ) }
+						template={ TEMPLATE }
+	   				 	//template={ times( 1, () => [ 'fp/column-block' ] ) }
 	   				 	templateLock="insert"
 	   				 	allowedBlocks={ [ 'fp/column-block' ] }
 		   			/>
@@ -901,7 +900,12 @@ registerBlockType( 'fp/section-container-block', {
 		let backgroundPositionVar;
 
 		if( backgroundImageUrl !== '' && backgroundImageUrl !== null ){
-			backgroundPositionVar = { backgroundPosition: backgroundImagePosition };
+			if( backgroundImageUrl !== '' && backgroundImageUrl !== null ){
+				let bgXPos = (backgroundImagePosition.x * 100)+'%';
+				let bgYPos = (backgroundImagePosition.y * 100)+'%';
+				
+				backgroundPositionVar = { backgroundPosition: bgXPos+' '+bgYPos };
+			}
 		}
 
 		let stickyBackgroundVar;

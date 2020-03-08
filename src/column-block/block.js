@@ -86,9 +86,11 @@ const InnerBlockModal = withState( {
 registerBlockType( 'fp/column-block', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'Column block' ), // Block title.
-	icon: 'shield', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
-	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
+	icon: 'grid-view', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
+	category: 'fancypantsy', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	parent: ['fp/section-container-block'],
+	description: __( 'A inner block, used for the layout for your section container block', 'fancypantsy-section-container-block' ),
+	inserter: false,
 	keywords: [
 		__( 'Column block', 'fancypantsy-section-container-block' ),
 		__( 'Column', 'fancypantsy-section-container-block' ),

@@ -27,6 +27,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @uses {wp-editor} for WP editor styles.
  * @since 1.0.0
  */
+
+// Hook: Block assets.
+add_action( 'init', 'fp_section_container_block_assets' );
+
+//Hook block JS files here.
+add_action( 'enqueue_block_editor_assets', 'fp_section_container_block_js_assets');
+
+//Add custom block category
+add_filter( 'block_categories', 'my_blocks_plugin_block_categories', 10, 2 );
+
 function fp_section_container_block_assets() { // phpcs:ignore
 	// Register block styles for both frontend + backend.
 	wp_register_style(
@@ -36,32 +46,12 @@ function fp_section_container_block_assets() { // phpcs:ignore
 		null // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css' ) // Version: File modification time.
 	);
 
-	// Register block editor script for backend.
-	wp_register_script(
-		'fp_section_container_block_js', // Handle.
-		plugins_url( '/dist/blocks.build.js', dirname( __FILE__ ) ), // Block.build.js: We register the block here. Built with Webpack.
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ), // Dependencies, defined above.
-		null, // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
-		true // Enqueue the script in the footer.
-	);
-
 	// Register block editor styles for backend.
 	wp_register_style(
 		'fp_section_container_block_admin_css', // Handle.
 		plugins_url( 'dist/blocks.editor.build.css', dirname( __FILE__ ) ), // Block editor CSS.
 		array( 'wp-edit-blocks' ), // Dependency to include the CSS after it.
 		null // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
-	);
-
-	// WP Localized globals. Use dynamic PHP stuff in JavaScript via `fpscbglobal` object.
-	wp_localize_script(
-		'fp_section_container_block_js',
-		'fpscbglobal', // Array containing dynamic data for a JS Global.
-		[
-			'pluginDirPath' 		=> plugin_dir_path( __DIR__ ),
-			'pluginDirUrl'  		=> plugin_dir_url( __DIR__ ),
-			'allowedColumnBlocks'	=> apply_filters( 'fp_allowed_inner_column_blocks', [], 10, 1 )
-		]
 	);
 
 	/**
@@ -95,14 +85,43 @@ function fp_section_container_block_assets() { // phpcs:ignore
 		return html_entity_decode( $content );
 	}
 
-	wp_enqueue_script('fp_section_container_block_js');
-
-	// var_export( plugin_dir_path( __DIR__ ) . 'languages' );
-	// die();
-
-	wp_set_script_translations( 'fp_section_container_block_js', 'fancypantsy-section-container-block', plugin_dir_path( __DIR__ ) . 'languages' );
-
 }
 
-// Hook: Block assets.
-add_action( 'init', 'fp_section_container_block_assets' );
+function fp_section_container_block_js_assets() {
+	// Register block editor script for backend.
+	wp_register_script(
+		'fp_section_container_block_js', // Handle.
+		plugins_url( '/dist/blocks.build.js', dirname( __FILE__ ) ), // Block.build.js: We register the block here. Built with Webpack.
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ), // Dependencies, defined above.
+		null, // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
+		true // Enqueue the script in the footer.
+	);
+
+	// WP Localized globals. Use dynamic PHP stuff in JavaScript via `fpscbglobal` object.
+	wp_localize_script(
+		'fp_section_container_block_js',
+		'fpscbglobal', // Array containing dynamic data for a JS Global.
+		[
+			'pluginDirPath' 		=> plugin_dir_path( __DIR__ ),
+			'pluginDirUrl'  		=> plugin_dir_url( __DIR__ ),
+			'allowedColumnBlocks'	=> apply_filters( 'fp_allowed_inner_column_blocks', [], 10, 1 )
+		]
+	);
+
+	wp_enqueue_script('fp_section_container_block_js');
+
+	wp_set_script_translations( 'fp_section_container_block_js', 'fancypantsy-section-container-block', plugin_dir_path( __DIR__ ) . 'languages' );
+}
+
+function my_blocks_plugin_block_categories( $categories ) {
+    return array_merge(
+        $categories,
+        array(
+            array(
+                'slug' => 'fancypantsy',
+                'title' => __( 'FancyPantsy Blocks' ),
+                'icon'  => 'wordpress',
+            ),
+        )
+    );
+}
