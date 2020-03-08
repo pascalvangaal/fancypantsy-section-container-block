@@ -320,6 +320,12 @@ registerBlockType( 'fp/section-container-block', {
 
     	let color = 'transparent';
 
+    	let columnRowClass;
+
+		if( columnsAmount ){ 
+			columnRowClass = 'block-row blocks-in-row-'+columnsAmount; 
+		}
+
 		function backgroundPosition(){
 			if( backgroundImageUrl !== null || backgroundColor !== null ){
 
@@ -787,12 +793,13 @@ registerBlockType( 'fp/section-container-block', {
 				<div className="container" style={{...paddingStyles}}>
 					<div className="background-element" style={{...backgroundPositionVar, ...backgroundImageVar, ...backgroundColorVal, ...stickyBackgroundVar }}></div>
 					{ headingFunction() }
-					<InnerBlocks 
-						template={ TEMPLATE }
-	   				 	//template={ times( 1, () => [ 'fp/column-block' ] ) }
-	   				 	templateLock="insert"
-	   				 	allowedBlocks={ [ 'fp/column-block' ] }
-		   			/>
+					<div className={ columnRowClass }>
+						<InnerBlocks 
+							template={ TEMPLATE }
+		   				 	templateLock="insert"
+		   				 	allowedBlocks={ [ 'fp/column-block' ] }
+			   			/>
+		   			</div>
 	   			</div>
 			</div>
 		];
