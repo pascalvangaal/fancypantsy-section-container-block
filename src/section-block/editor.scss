@@ -244,3 +244,34 @@
 		}
 	}
 }
+
+//Weird fix for input fields being to big.
+.block-editor-url-input input[type=text]{
+	width:auto !important;
+	max-width:100% !important;
+}
+
+.components-panel__row{
+	flex-flow:row wrap;
+}
+
+.components-panel__row label.fullwidth-label{
+	flex:0 0 100%;
+	max-width:100%;
+}
+
+.editor-url-input__button.block-editor-url-input__button{
+	flex:0 0 100%;
+}
+
+.components-base-control.button-text-field-wrapper{
+	margin-top:8px !important;
+}
+
+.components-base-control.button-text-field-wrapper .components-base-control__field{
+	margin-bottom:0 !important;
+}
+
+.components-base-control.button-target-field-wrapper .components-base-control__field{
+	margin-bottom:0 !important;
+}

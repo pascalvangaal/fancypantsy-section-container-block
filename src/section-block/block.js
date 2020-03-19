@@ -19,7 +19,8 @@ const {
 const { 
     InnerBlocks,
     InspectorControls,
-    MediaUpload
+    MediaUpload,
+    URLInputButton
 } = wp.blockEditor;
 
 const {
@@ -141,7 +142,21 @@ registerBlockType( 'fp/section-container-block', {
         },
         columnLayoutOption: {
         	type: 'string',
-        }
+        },
+        buttonUrl: {
+        	type: 'string',
+        },
+        buttonTarget: {
+        	type: 'boolean',
+        	default: false,
+        },
+        buttonText: {
+        	type: 'string',
+        },
+        buttonAlignment: {
+        	type: 'text',
+        	default: 'align-center'
+        },
 	},
 	example: {
 	    attributes: {
@@ -191,6 +206,10 @@ registerBlockType( 'fp/section-container-block', {
 			sectionEnableInlineMargin,
 			customAnchor,
 			columnLayoutOption,
+			buttonUrl,
+			buttonText,
+			buttonTarget,
+			buttonAlignment
 		} = attributes;
 
 		let customAnchorVar;
@@ -198,8 +217,6 @@ registerBlockType( 'fp/section-container-block', {
 		const TEMPLATE = [ [ 'fp/column-block', {} ] ];
 
 		props.className = 'wp-block-fp-section-container-block section';
-
-		console.log( attributes );
 
 		function updateColumns( previousColumns, newColumns ) {
 
@@ -667,6 +684,78 @@ registerBlockType( 'fp/section-container-block', {
 
 		}
 
+		function buttonAfterSectionFields(){
+
+			if( buttonUrl && buttonUrl !== '' ){ 
+
+				return[
+					<TextControl
+						className="button-text-field-wrapper"
+				        label={ __( 'Button text', 'fancypantsy-section-container-block' ) }
+				        placeholder={ __( 'Click here', 'fancypantsy-section-container-block' ) }
+				        value={ buttonText }
+				        onChange={ ( value ) => setAttributes( { buttonText: value } ) }
+				    />,
+					<ToggleControl
+						className="button-target-field-wrapper"
+				        label={ __( 'Open link on a new page?', 'fancypantsy-section-container-block' ) }
+				        checked={ buttonTarget }
+				        onChange={ ( buttonTarget ) => { setAttributes( { buttonTarget: buttonTarget } ) } }
+				    />,
+				    <SelectControl
+							label={ __( 'Button alignment', 'fancypantsy-section-container-block' ) }
+							value={ buttonAlignment }
+							options={ [
+								{
+									value: 'align-left',
+									label: __( 'Align left', 'fancypantsy-section-container-block' ),
+								},
+								{
+									value: 'align-center',
+									label: __( 'Align center', 'fancypantsy-section-container-block' ),
+								},
+								{
+									value: 'align-right',
+									label: __( 'Align right', 'fancypantsy-section-container-block' ),
+								},
+							] }
+
+							onChange={ ( value ) => setAttributes( { buttonAlignment: value } ) }
+						/>
+				];
+
+			}
+
+		}
+
+		function buildAfterSectionButton(){
+
+			if( buttonUrl && buttonUrl !== '' ){
+
+				let targetStr = '';
+
+				if( buttonTarget && buttonTarget == true ){
+					targetStr = '"_blank"';
+				}
+
+				let buttonTextStr = '';
+
+				if( buttonText && buttonText !== '' ){
+					buttonTextStr = buttonText;
+				} else{
+					buttonTextStr = __( 'Click here', 'fancypantsy-section-container-block' );
+				}
+				
+				return[
+					<div class="after-section-button-wrapper" data-button-alignment={buttonAlignment}>
+						<a className="section-button" href={buttonUrl} target={targetStr}>{buttonTextStr}</a>
+					</div>
+				];
+
+			}
+
+		}
+
 		return [
 			<InspectorControls>
 				<PanelBody
@@ -862,6 +951,23 @@ registerBlockType( 'fp/section-container-block', {
 				    { marginWhitespaceFields() }
 				 
 				</PanelBody>
+				
+				<PanelBody
+					title={ __( 'Button', 'fancypantsy-section-container-block' ) }
+					initialOpen={ false }
+				>
+					<PanelRow>
+						<label class="components-base-control__label fullwidth-label">{ __( 'Insert URL', 'fancypantsy-section-container-block' ) }</label>
+						
+						<URLInputButton
+							url={ buttonUrl }
+							onChange={ ( buttonUrl, post ) => setAttributes( { buttonUrl } ) }
+						/>
+
+						{ buttonAfterSectionFields() }
+
+					</PanelRow>
+				</PanelBody>
 
 			</InspectorControls>,
 			<div data-section-bg-alignment={sectionBGAlignment} data-column-layout-mode={columnLayoutOption} className={ props.className } style={{ ...marginStyles }}>
@@ -876,6 +982,7 @@ registerBlockType( 'fp/section-container-block', {
 		   				 	allowedBlocks={ [ 'fp/column-block' ] }
 			   			/>
 		   			</div>
+		   			{ buildAfterSectionButton() }
 	   			</div>
 			</div>
 		];
@@ -913,7 +1020,11 @@ registerBlockType( 'fp/section-container-block', {
 			sectionEnableInlinePadding,
 			sectionEnableInlineMargin,
 			customAnchor,
-			columnLayoutOption
+			columnLayoutOption,
+			buttonUrl,
+			buttonText,
+			buttonTarget,
+			buttonAlignment
 		} = attributes;
 
 		let customAnchorVar;
@@ -1074,6 +1185,34 @@ registerBlockType( 'fp/section-container-block', {
 
 		let columnRowClass;
 
+		function buildAfterSectionButton(){
+
+			if( buttonUrl && buttonUrl !== '' ){
+
+				let targetStr = '';
+
+				if( buttonTarget && buttonTarget == true ){
+					targetStr = '"_blank"';
+				}
+
+				let buttonTextStr = '';
+
+				if( buttonText && buttonText !== '' ){
+					buttonTextStr = buttonText;
+				} else{
+					buttonTextStr = __( 'Click here', 'fancypantsy-section-container-block' );
+				}
+				
+				return[
+					<div class="after-section-button-wrapper" data-button-alignment={buttonAlignment}>
+						<a className="section-button" href={buttonUrl} target={targetStr}>{buttonTextStr}</a>
+					</div>
+				];
+
+			}
+
+		}
+
 		if( columnsAmount ){
 			columnRowClass = 'block-row blocks-in-row-'+columnsAmount;
 		}
@@ -1087,6 +1226,7 @@ registerBlockType( 'fp/section-container-block', {
 					<div className={ columnRowClass }>
 						<InnerBlocks.Content />
 					</div>
+					{ buildAfterSectionButton() }
 				</div>
 			</section>
 		);

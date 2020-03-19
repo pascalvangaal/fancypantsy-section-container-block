@@ -110,6 +110,18 @@
 	justify-content: flex-end;
 }
 
+.wp-block-fp-section-container-block .after-section-button-wrapper{
+	&[data-button-alignment="align-left"]{
+		text-align:left;
+	}
+	&[data-button-alignment="align-center"]{
+		text-align:center;
+	}
+	&[data-button-alignment="align-right"]{
+		text-align:right;
+	}
+}
+
 @media screen and (max-width: 1220px){
 
 	.wp-block-fp-section-container-block .container{
