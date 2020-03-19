@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Fancypantsy Section Container Block plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Fancypantsy Section Container Block 0.0.8\n"
+"Project-Id-Version: Fancypantsy Section Container Block 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/fancypantsy-section-container-block\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -140,6 +140,42 @@ msgstr ""
 #: dist/blocks.build.js:1
 #: src/section-block/block.js:647
 msgid "4"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:618
+#: src/section-block/block.js:645
+msgid "Column layout option"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:623
+msgid "Left"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:627
+msgid "Center"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:631
+msgid "Right"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:650
+msgid "Equal width"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:654
+msgid "Small column left"
+msgstr ""
+
+#: dist/blocks.build.js:1
+#: src/section-block/block.js:658
+msgid "Small column right"
 msgstr ""
 
 #: dist/blocks.build.js:1

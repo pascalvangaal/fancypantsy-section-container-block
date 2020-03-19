@@ -138,6 +138,9 @@ registerBlockType( 'fp/section-container-block', {
         },
         customAnchor: {
         	type: 'string',
+        },
+        columnLayoutOption: {
+        	type: 'string',
         }
 	},
 	example: {
@@ -186,7 +189,8 @@ registerBlockType( 'fp/section-container-block', {
 			sectionTitleAlignment,
 			sectionEnableInlinePadding,
 			sectionEnableInlineMargin,
-			customAnchor
+			customAnchor,
+			columnLayoutOption,
 		} = attributes;
 
 		let customAnchorVar;
@@ -195,9 +199,18 @@ registerBlockType( 'fp/section-container-block', {
 
 		props.className = 'wp-block-fp-section-container-block section';
 
+		console.log( attributes );
+
 		function updateColumns( previousColumns, newColumns ) {
 
 			setAttributes( { columnsAmount: parseInt(newColumns) } );
+
+			//Set initial layout mode
+			if( parseInt(newColumns) === 1 ){
+				setAttributes( { columnLayoutOption: 'one-column-align-left' } );
+			} else if( parseInt(newColumns) === 2 ){
+				setAttributes( { columnLayoutOption: 'two-columns-equal' } );
+			}
 
 			const { replaceInnerBlocks } = wp.data.dispatch( 'core/block-editor' );
 			const { getBlocks } = wp.data.select( 'core/block-editor' );
@@ -594,6 +607,66 @@ registerBlockType( 'fp/section-container-block', {
 
 		}
 
+		function columnLayoutOptions(){
+
+			if( columnsAmount === 1 ){
+
+				return[
+					<PanelRow>
+
+						<SelectControl
+							label={ __( 'Column layout option', 'fancypantsy-section-container-block' ) }
+							value={ columnLayoutOption }
+							options={ [
+								{
+									value: 'one-column-align-left',
+									label: __( 'Left', 'fancypantsy-section-container-block' ),
+								},
+								{
+									value: 'one-column-align-center',
+									label: __( 'Center', 'fancypantsy-section-container-block' ),
+								},
+								{
+									value: 'one-column-align-right',
+									label: __( 'Right', 'fancypantsy-section-container-block' ),
+								},
+							] }
+							onChange={ ( value ) => setAttributes( { columnLayoutOption: value } ) }
+						/>
+
+					</PanelRow>
+				];
+
+			} else if( columnsAmount === 2 ){
+				return[
+					<PanelRow>
+
+						<SelectControl
+							label={ __( 'Column layout option', 'fancypantsy-section-container-block' ) }
+							value={ columnLayoutOption }
+							options={ [
+								{
+									value: 'two-columns-equal',
+									label: __( 'Equal width', 'fancypantsy-section-container-block' ),
+								},
+								{
+									value: 'two-columns-small-left',
+									label: __( 'Small column left', 'fancypantsy-section-container-block' ),
+								},
+								{
+									value: 'two-columns-small-right',
+									label: __( 'Small column right', 'fancypantsy-section-container-block' ),
+								},
+							] }
+							onChange={ ( value ) => setAttributes( { columnLayoutOption: value } ) }
+						/>
+
+					</PanelRow>
+				];
+			}
+
+		}
+
 		return [
 			<InspectorControls>
 				<PanelBody
@@ -694,6 +767,9 @@ registerBlockType( 'fp/section-container-block', {
 						/>
 
 					</PanelRow>
+
+					{ columnLayoutOptions() }
+
 				</PanelBody>
 				
 				<PanelBody
@@ -788,7 +864,7 @@ registerBlockType( 'fp/section-container-block', {
 				</PanelBody>
 
 			</InspectorControls>,
-			<div data-section-bg-alignment={sectionBGAlignment} className={ props.className } style={{ ...marginStyles }}>
+			<div data-section-bg-alignment={sectionBGAlignment} data-column-layout-mode={columnLayoutOption} className={ props.className } style={{ ...marginStyles }}>
 				{ customAnchorFunction() }
 				<div className="container" style={{...paddingStyles}}>
 					<div className="background-element" style={{...backgroundPositionVar, ...backgroundImageVar, ...backgroundColorVal, ...stickyBackgroundVar }}></div>
@@ -836,7 +912,8 @@ registerBlockType( 'fp/section-container-block', {
 			sectionTitleAlignment,
 			sectionEnableInlinePadding,
 			sectionEnableInlineMargin,
-			customAnchor
+			customAnchor,
+			columnLayoutOption
 		} = attributes;
 
 		let customAnchorVar;
@@ -1002,7 +1079,7 @@ registerBlockType( 'fp/section-container-block', {
 		}
 
 		return (
-			<section data-section-bg-alignment={sectionBGAlignment} className={ props.className } style={{ ...marginStyles }}>
+			<section data-section-bg-alignment={sectionBGAlignment} data-column-layout-mode={columnLayoutOption} className={ props.className } style={{ ...marginStyles }}>
 				{ customAnchorFunction() }
 				<div className="container" style={{...paddingStyles}}>
 					<div className="background-element" style={{...backgroundPositionVar, ...backgroundImageVar, ...backgroundColorVal, ...stickyBackgroundVar }}></div>
