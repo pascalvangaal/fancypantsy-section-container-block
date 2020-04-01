@@ -68,15 +68,6 @@
 
 //Editor stuff end
 
-.wp-block-cgb-block-fancypantsy-section-container-block  {
-  background: $green;
-  border: 0.2rem solid $black;
-  color: $black;
-  margin: 0 auto;
-  max-width: 740px;
-  padding: 2rem;
-}
-
 .wp-block-fp-section-container-block .block-editor-inner-blocks .editor-block-list__layout{
 	display: flex;
 	flex-flow: row wrap;
@@ -92,7 +83,7 @@
 	}
 }
 
-.wp-block-fp-section-container-block .block-editor-inner-blocks .editor-block-list__layout{
+.wp-block-fp-section-container-block .block-editor-inner-blocks .block-editor-block-list__layout{
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
@@ -108,26 +99,26 @@
 	}
 }
 
-.wp-block-fp-section-container-block .blocks-in-row-1 .block-editor-inner-blocks .editor-block-list__layout{
+.wp-block-fp-section-container-block .blocks-in-row-1 .block-editor-inner-blocks .block-editor-block-list__layout{
 	.wp-block{
 		flex:0 1 800px;
 		margin:auto;
 	}
 }
 
-.wp-block-fp-section-container-block[data-column-layout-mode="one-column-align-left"] .block-editor-inner-blocks .editor-block-list__layout{
+.wp-block-fp-section-container-block[data-column-layout-mode="one-column-align-left"] .block-editor-inner-blocks .block-editor-block-list__layout{
 	.wp-block{
 		margin:auto auto auto 0;
 	}
 }
 
-.wp-block-fp-section-container-block[data-column-layout-mode="one-column-align-right"] .block-editor-inner-blocks .editor-block-list__layout{
+.wp-block-fp-section-container-block[data-column-layout-mode="one-column-align-right"] .block-editor-inner-blocks .block-editor-block-list__layout{
 	.wp-block{
 		margin:auto 0 auto auto;
 	}
 }
 
-.wp-block-fp-section-container-block[data-column-layout-mode="two-columns-small-left"] .block-editor-inner-blocks .editor-block-list__layout{
+.wp-block-fp-section-container-block[data-column-layout-mode="two-columns-small-left"] .block-editor-inner-blocks .block-editor-block-list__layout{
 	.wp-block{
 		flex:1;
 	
@@ -137,7 +128,7 @@
 	}
 }
 
-.wp-block-fp-section-container-block[data-column-layout-mode="two-columns-small-right"] .block-editor-inner-blocks .editor-block-list__layout{
+.wp-block-fp-section-container-block[data-column-layout-mode="two-columns-small-right"] .block-editor-inner-blocks .block-editor-block-list__layout{
 	.wp-block{
 		flex:2;
 	
@@ -274,4 +265,33 @@
 
 .components-base-control.button-target-field-wrapper .components-base-control__field{
 	margin-bottom:0 !important;
+}
+
+
+//WP 5.4 fixes
+.block-editor-block-list__layout .block-editor-block-list__block:before{
+	border-color: rgba(66,88,99,.4);
+  	box-shadow: inset 3px 0 0 0 #555d66;
+}
+
+.wp-block-fp-section-container-block .block-editor-inner-blocks{
+	width:100%;
+}
+
+.block-library-block__reusable-block-container{
+	.block-editor-inner-blocks{
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		.wp-block{
+			flex:1;
+			margin-right:45px;
+			box-sizing:border-box;
+			min-width:200px;
+
+			&:last-child{
+				margin-right:0;
+			}
+		}
+	}
 }
