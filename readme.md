@@ -3,7 +3,7 @@ This all started out as a hobby of mine and the desire to try and make a _native
 
 ## Features
 - Custom background for your section
-- - Background image with position options.
+- - Background image with position options. (With the focalpoint picker)
 - - Background color.
 - - Option to position the background div to multiple locations.
 - Section title
@@ -25,14 +25,15 @@ Below you fill find a list of upcoming features concerning the section or column
 - - ~~Dutch~~
 - - ~~English~~
 - - T.B.D.
-- Button option for the whole section.
-- - Position option left - center - right
-- - Label
-- - Link
-- - Target
+- ~~Button option for the whole section.~~
+- - ~~Position option left - center - right~~
+- - ~~Label~~
+- - ~~Link~~
+- - ~~Target~~
 
 ### Column
 - More column layout Options. Instead of only the ability to either use 1, 2, 3 or 4 columns in equal width, the ability to choose some more dynamic presets.
+- - ~~I have provided some options for either the 1 or 2 column blocks.~~
 
 ## Credit where it's due
 This project was bootstrapped with [Create Guten Block](https://github.com/ahmadawais/create-guten-block).

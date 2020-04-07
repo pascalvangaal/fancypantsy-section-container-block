@@ -142,6 +142,7 @@ registerBlockType( 'fp/section-container-block', {
         },
         columnLayoutOption: {
         	type: 'string',
+        	default: 'one-column-align-center'
         },
         buttonUrl: {
         	type: 'string',
@@ -626,7 +627,7 @@ registerBlockType( 'fp/section-container-block', {
 
 		function columnLayoutOptions(){
 
-			if( columnsAmount === 1 ){
+			if( columnsAmount == 1 ){
 
 				return[
 					<PanelRow>
@@ -654,7 +655,7 @@ registerBlockType( 'fp/section-container-block', {
 					</PanelRow>
 				];
 
-			} else if( columnsAmount === 2 ){
+			} else if( columnsAmount == 2 ){
 				return[
 					<PanelRow>
 
