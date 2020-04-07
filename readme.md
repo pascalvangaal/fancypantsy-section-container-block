@@ -5,7 +5,6 @@ This all started out as a hobby of mine and the desire to try and make a _native
 - Custom background for your section
 - - Background image with position options. (With the focalpoint picker)
 - - Background color.
-- - Option to position the background div to multiple locations.
 - Section title
 - - Heading type option
 - - Position option
